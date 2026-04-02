@@ -1,0 +1,152 @@
+# FrameFolio Backend — Full Audit
+
+## Summary
+
+The backend is well-structured and production-ready in design. However there are **8 real bugs** — 3 critical (cause 500 errors in production), 3 medium (wrong behaviour / missing auth), and 2 low (DX / warnings). The rest of the code is solid.
+
+---
+
+## 🔴 Critical — Will Crash in Production
+
+### 1. `admin.py` — `/admin/users` and `/admin/bookings` return raw SQLAlchemy objects
+
+`PaginatedResponse(items=items)` where `items` is a list of SQLAlchemy `User` / `Booking` objects. Pydantic cannot serialize them.
+
+**Same root cause as the `/photographers` crash we already fixed.**
+
+- `admin_list_users` → returns `List[User]` ORM objects, not `List[UserRead]`
+- `admin_list_bookings` → returns `List[Booking]` ORM objects, not `List[BookingRead]`
+
+---
+
+### 2. `booking_service.py` — `list_user_bookings` returns raw `Booking` ORM objects
+
+`PaginatedResponse(items=items)` where `items = result.scalars().all()` — same Pydantic serialization crash as above. Will fail every time `/bookings` is called (GET).
+
+---
+
+### 3. `booking_service.py` — `create_booking` requires availability to pre-exist
+
+```python
+if not availability:
+    raise BadRequestException("Photographer does not have availability set for this date")
+```
+
+The `/availability/me` endpoint exists for photographers to set dates, but no seeded availability exists. So **every booking attempt fails** even though the photographer exists. The availability check is correct for production but blocks all testing without seeded dates.
+
+---
+
+## 🟡 Medium — Wrong Behaviour / Partial Bugs
+
+### 4. `booking_service.py` — `is_photographer` check is unreliable
+
+```python
+if hasattr(current_user, "photographer_profile") and current_user.photographer_profile:
+    is_photographer = current_user.photographer_profile.id == booking.photographer_id
+```
+
+`current_user.photographer_profile` is a SQLAlchemy backref loaded lazily. In async context this will either raise `MissingGreenlet` or return `None` silently. The photographer can **never accept/reject bookings** this way.
+
+**Fix:** query `PhotographerProfile` explicitly by `user_id` like done elsewhere.
+
+---
+
+### 5. `admin.py` — `ALLOWED_ORIGINS` missing `localhost:5174`
+
+`config.py` has `["http://localhost:3000", "http://localhost:5173"]`. When Vite bumps to port 5174 (port 5173 already in use), CORS blocks all API calls from the admin dashboard.
+
+---
+
+### 6. `availability.py` — GET requires `from_date` and `to_date` as required query params
+
+The frontend doesn't pass these params — it just calls `/availability/me`. The endpoint signature requires `from_date` and `to_date` (marked `...` = required). This will 422 on every frontend call that doesn't include them.
+
+---
+
+## 🟢 Low — Dev Experience / Clean-up
+
+### 7. `security.py` — `SECRET_KEY` regenerates on every restart
+
+```python
+SECRET_KEY: str = secrets.token_urlsafe(64)
+```
+
+Since `.env` doesn't have `SECRET_KEY` set, a new random key is generated on every server restart. **All existing JWT tokens become invalid on restart.** Not a crash, but every logged-in user gets logged out when you restart the server.
+
+**Fix:** Add `SECRET_KEY=your-long-random-string` to `.env`.
+
+---
+
+### 8. `booking_service.py` — `asyncio.create_task` called outside a running loop scope
+
+```python
+asyncio.create_task(EmailService.send_booking_request_email(...))
+```
+
+This works in FastAPI's async context, but if `SMTP_USER` and `SMTP_PASSWORD` are empty (as in `.env`), the email task will silently fail or crash in the background. Not a visible error but should be guarded.
+
+---
+
+## ✅ Ready-to-Paste Fix Prompt
+
+Copy this entire prompt and paste it to your AI assistant to fix all issues:
+
+---
+
+```
+Fix the following bugs in the FrameFolio-UAE FastAPI backend:
+
+**BUG 1 — admin.py: admin_list_users returns raw SQLAlchemy User objects in PaginatedResponse**
+In `app/api/v1/admin.py`, the `admin_list_users` endpoint returns `items=items` where `items` is a list of SQLAlchemy `User` ORM objects. Pydantic cannot serialize them. Fix by converting each item to `UserRead.model_validate(u)` before putting them in the PaginatedResponse.
+
+**BUG 2 — admin.py: admin_list_bookings returns raw SQLAlchemy Booking objects in PaginatedResponse**
+Same as BUG 1 but for `admin_list_bookings`. Fix by converting each item to `BookingRead.model_validate(b)`.
+
+**BUG 3 — booking_service.py: list_user_bookings returns raw Booking objects in PaginatedResponse**
+In `app/services/booking_service.py`, `list_user_bookings` does `PaginatedResponse(items=items)` where `items = result.scalars().all()`. Fix by converting each booking to `BookingRead.model_validate(b)`.
+
+**BUG 4 — booking_service.py: is_photographer check uses unreliable lazy-loaded backref**
+In `update_status`, the `is_photographer` check does:
+```python
+if hasattr(current_user, "photographer_profile") and current_user.photographer_profile:
+    is_photographer = current_user.photographer_profile.id == booking.photographer_id
+```
+In async SQLAlchemy this will fail silently or raise MissingGreenlet. Fix by explicitly querying:
+```python
+ph_result = await self.db.execute(
+    select(PhotographerProfile).where(
+        PhotographerProfile.user_id == current_user.id,
+        PhotographerProfile.id == booking.photographer_id
+    )
+)
+is_photographer = ph_result.scalar_one_or_none() is not None
+```
+
+**BUG 5 — config.py: ALLOWED_ORIGINS missing localhost:5174**
+In `app/core/config.py`, add `"http://localhost:5174"` to the `ALLOWED_ORIGINS` list so Vite's fallback port doesn't get CORS-blocked.
+
+**BUG 6 — booking_service.py: create_booking requires pre-existing Availability row, blocking all testing**
+If no availability row exists for a date, booking fails. Make the availability check optional with a soft bypass: if no Availability row exists for the date AND the photographer's `is_available` flag is `True`, allow the booking (create the availability row on the fly). Only hard-block if an Availability row exists and `is_booked=True`.
+
+**BUG 7 — .env: SECRET_KEY not set, regenerates on every restart**
+Add `SECRET_KEY=framefolio-super-secret-jwt-key-change-in-production-2024` to `backend/.env` so JWT tokens survive server restarts.
+
+**BUG 8 — booking_service.py: email tasks should be guarded against missing SMTP config**
+Wrap `asyncio.create_task(EmailService.send_*(...))` calls in a guard:
+```python
+if settings.SMTP_USER and settings.SMTP_PASSWORD:
+    asyncio.create_task(EmailService.send_*(...))
+```
+```
+```
+
+---
+
+## Already Fixed (This Session)
+
+| # | Issue | Status |
+|---|-------|--------|
+| bcrypt 5.x/passlib incompatibility | `register` and `login` crashed | ✅ Fixed |
+| `photographer_service.py` list endpoint | Raw ORM objects in PaginatedResponse | ✅ Fixed |
+| `photographer_service.py` missing User join | `full_name` always null in list | ✅ Fixed |
+| `photographer_service.py` PhotographerProfileRead | Missing model_validator for user fields | ✅ Fixed |
