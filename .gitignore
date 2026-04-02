@@ -1,4 +1,6 @@
+# Python / Backend
 .env
+.env.*
 __pycache__/
 *.pyc
 *.pyo
@@ -7,14 +9,31 @@ __pycache__/
 venv/
 .venv/
 env/
-dist/
 build/
 *.egg-info/
 .mypy_cache/
 .pytest_cache/
 .coverage
 htmlcov/
-.DS_Store
 *.log
 alembic/versions/*.py
 !alembic/versions/.gitkeep
+*.db
+*.sqlite3
+
+# Frontend / Node
+node_modules/
+dist/
+dist-ssr/
+*.local
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+.idea/
+.vscode/
+*.suo
+*.sw?
