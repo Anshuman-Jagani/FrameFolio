@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { patch } from '../lib/api'
 
 export type UserRole = 'client' | 'photographer' | 'admin'
 
@@ -45,12 +46,20 @@ export const useAuthStore = create<AuthState>()(
             accessToken: tokens?.accessToken ?? null,
             refreshToken: tokens?.refreshToken ?? null,
           }),
-        updateFullName: (fullName) => {
-          localStorage.setItem(FULL_NAME_KEY, fullName)
-          set((state) => ({
-            user: state.user ? { ...state.user, fullName } : null,
-          }))
-        },
+        updateFullName: async (fullName) => {
+           // Save to server/database
+           try {
+             await patch(`/users/me`, { full_name: fullName });
+             
+             // Update local state
+             set((state) => ({
+               user: state.user ? { ...state.user, fullName } : null,
+             }));
+           } catch (error) {
+             console.error('Failed to update full name:', error);
+             throw error;
+           }
+         },
       }
     },
     {

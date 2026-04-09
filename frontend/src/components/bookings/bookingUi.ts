@@ -63,13 +63,13 @@ export function statusToneClass(status: BookingStatus): string {
     return 'bg-emerald-50 text-emerald-700 border-emerald-200'
   }
   if (status === 'requested') {
-    return 'bg-burgundy-50 text-burgundy-500 border-burgundy-100'
+    return 'bg-pine-50 text-pine-500 border-pine-100'
   }
   if (status === 'rejected') {
     return 'bg-rose-50 text-rose-700 border-rose-200'
   }
   if (status === 'cancelled') {
-    return 'bg-cream-200 text-charcoal-700 border-taupe-100'
+    return 'bg-parchment-200 text-charcoal-700 border-parchment-200'
   }
-  return 'bg-cream-200 text-charcoal-700 border-taupe-100'
+  return 'bg-parchment-200 text-charcoal-700 border-parchment-200'
 }

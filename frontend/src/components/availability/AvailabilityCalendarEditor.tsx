@@ -152,25 +152,25 @@ export default function AvailabilityCalendarEditor({
   }
 
   return (
-    <div className="rounded-2xl border border-taupe-100 bg-cream-50 p-4">
+    <div className="rounded-2xl border border-parchment-200 bg-parchment-100 p-4">
       <div className="flex items-center justify-between gap-2">
         <div className="text-sm font-semibold text-charcoal-700">Availability editor</div>
         <div className="flex items-center gap-2">
           <button
             type="button"
             aria-label="Previous month"
-            className="rounded-lg border border-taupe-100 px-2 py-1 text-sm text-charcoal-700 hover:text-burgundy-500"
+            className="rounded-lg border border-parchment-200 px-2 py-1 text-sm text-charcoal-700 hover:text-pine-500"
             onClick={() => shift(-1)}
           >
             ‹
           </button>
-          <span className="text-sm font-medium text-taupe-800 min-w-[140px] text-center">
+          <span className="text-sm font-medium text-copper-800 min-w-[140px] text-center">
             {title}
           </span>
           <button
             type="button"
             aria-label="Next month"
-            className="rounded-lg border border-taupe-100 px-2 py-1 text-sm text-charcoal-700 hover:text-burgundy-500"
+            className="rounded-lg border border-parchment-200 px-2 py-1 text-sm text-charcoal-700 hover:text-pine-500"
             onClick={() => shift(1)}
           >
             ›
@@ -178,16 +178,16 @@ export default function AvailabilityCalendarEditor({
         </div>
       </div>
 
-      <p className="mt-1 text-xs text-taupe-600">
+      <p className="mt-1 text-xs text-copper-600">
         Click a day to toggle. Default: if you have no row for a date, it’s treated as available when you’re
         open.
       </p>
 
       {loading ? (
-        <div className="mt-4 h-52 rounded-xl bg-cream-200/60 animate-pulse" />
+        <div className="mt-4 h-52 rounded-xl bg-parchment-200/60 animate-pulse" />
       ) : (
         <>
-          <div className="mt-3 grid grid-cols-7 gap-1 text-[10px] font-semibold text-taupe-500 uppercase tracking-wide">
+          <div className="mt-3 grid grid-cols-7 gap-1 text-[10px] font-semibold text-copper-500 uppercase tracking-wide">
             {weekdays.map((d) => (
               <div key={d} className="text-center py-1">
                 {d}
@@ -207,8 +207,8 @@ export default function AvailabilityCalendarEditor({
                   const isPast = new Date(cursor.y, cursor.m, day) < new Date(today.getFullYear(), today.getMonth(), today.getDate())
                   
                   const tone = effectiveIsBooked
-                    ? 'bg-burgundy-500 text-white border border-burgundy-600 opacity-80'
-                    : 'bg-cream-100 text-charcoal-700 border border-taupe-200 hover:bg-burgundy-50 hover:border-burgundy-300'
+                    ? 'bg-pine-500 text-white border border-pine-600 opacity-80'
+                    : 'bg-parchment-200 text-charcoal-700 border border-parchment-200 hover:bg-pine-50 hover:border-pine-300'
 
                   return (
                     <button
@@ -218,7 +218,7 @@ export default function AvailabilityCalendarEditor({
                       className={[
                         'h-8 rounded-lg border text-center text-xs font-medium flex items-center justify-center transition relative',
                         isPast ? 'opacity-40 cursor-not-allowed pointer-events-none' : tone,
-                        isToday && !isPast ? 'ring-2 ring-burgundy-400 outline' : '',
+                        isToday && !isPast ? 'ring-2 ring-pine-400 outline' : '',
                       ].join(' ')}
                       title={effectiveIsBooked ? `${dateStr}: unavailable` : `${dateStr}: available`}
                       onClick={() => !isPast && void toggleDay(dateStr)}
@@ -233,11 +233,11 @@ export default function AvailabilityCalendarEditor({
         </>
       )}
 
-      <div className="mt-5 rounded-2xl border border-taupe-100 bg-cream-50 p-4">
+      <div className="mt-5 rounded-2xl border border-parchment-200 bg-parchment-100 p-4">
         <div className="flex items-center justify-between gap-3 flex-wrap">
           <div>
             <div className="text-sm font-semibold text-charcoal-700">Block a date range</div>
-            <div className="text-xs text-taupe-600 mt-1">
+            <div className="text-xs text-copper-600 mt-1">
               Apply in one request (max ~60 days).
             </div>
           </div>
@@ -245,7 +245,7 @@ export default function AvailabilityCalendarEditor({
 
         <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label className="text-xs font-medium text-taupe-700" htmlFor="rangeStart">
+            <label className="text-xs font-medium text-olive-500" htmlFor="rangeStart">
               Start
             </label>
             <input
@@ -253,11 +253,11 @@ export default function AvailabilityCalendarEditor({
               type="date"
               value={rangeStart}
               onChange={(e) => setRangeStart(e.target.value)}
-              className="mt-1 w-full rounded-2xl border border-taupe-100 bg-cream-50 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-burgundy-500/30 text-charcoal-700"
+              className="mt-1 w-full rounded-2xl border border-parchment-200 bg-parchment-100 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-pine-500/30 text-charcoal-700"
             />
           </div>
           <div>
-            <label className="text-xs font-medium text-taupe-700" htmlFor="rangeEnd">
+            <label className="text-xs font-medium text-olive-500" htmlFor="rangeEnd">
               End
             </label>
             <input
@@ -265,7 +265,7 @@ export default function AvailabilityCalendarEditor({
               type="date"
               value={rangeEnd}
               onChange={(e) => setRangeEnd(e.target.value)}
-              className="mt-1 w-full rounded-2xl border border-taupe-100 bg-cream-50 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-burgundy-500/30 text-charcoal-700"
+              className="mt-1 w-full rounded-2xl border border-parchment-200 bg-parchment-100 px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-pine-500/30 text-charcoal-700"
             />
           </div>
         </div>
@@ -277,7 +277,7 @@ export default function AvailabilityCalendarEditor({
               'rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors',
               rangeIsBooked
                 ? 'border-amber-200 bg-amber-50 text-amber-900'
-                : 'border-taupe-200 bg-cream-50 text-taupe-700 hover:bg-cream-100',
+                : 'border-parchment-200 bg-parchment-100 text-olive-500 hover:bg-parchment-200',
             ].join(' ')}
             onClick={() => setRangeIsBooked(true)}
           >
@@ -289,7 +289,7 @@ export default function AvailabilityCalendarEditor({
               'rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors',
               !rangeIsBooked
                 ? 'border-emerald-200 bg-emerald-50 text-emerald-900'
-                : 'border-taupe-200 bg-cream-50 text-taupe-700 hover:bg-cream-100',
+                : 'border-parchment-200 bg-parchment-100 text-olive-500 hover:bg-parchment-200',
             ].join(' ')}
             onClick={() => setRangeIsBooked(false)}
           >
@@ -298,7 +298,7 @@ export default function AvailabilityCalendarEditor({
 
           <button
             type="button"
-            className="ml-auto rounded-xl bg-burgundy-500 text-cream-50 px-4 py-2 text-sm font-medium hover:bg-burgundy-600 transition-colors"
+            className="ml-auto rounded-xl bg-pine-500 text-parchment-50 px-4 py-2 text-sm font-medium hover:bg-pine-600 transition-colors"
             onClick={() => void applyRange()}
           >
             Apply

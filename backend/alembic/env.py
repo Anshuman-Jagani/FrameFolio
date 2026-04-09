@@ -20,12 +20,34 @@ import app.models  # noqa: F401 — registers all models
 target_metadata = Base.metadata
 
 
-def get_url() -> str:
-    return settings.DATABASE_URL
+def get_sync_url() -> str:
+    """
+    Convert async DB driver URLs to their synchronous equivalents.
+    Alembic always uses a synchronous engine — async drivers (aiosqlite,
+    asyncpg) will cause a MissingGreenlet error.
+
+    Mapping:
+      sqlite+aiosqlite:///  →  sqlite:///
+      postgresql+asyncpg://  →  postgresql+psycopg2://
+      postgres+asyncpg://    →  postgresql+psycopg2://
+    """
+    url: str = settings.DATABASE_URL
+
+    # SQLite async → sync
+    if url.startswith("sqlite+aiosqlite"):
+        return url.replace("sqlite+aiosqlite", "sqlite", 1)
+
+    # PostgreSQL asyncpg → psycopg2
+    for async_prefix in ("postgresql+asyncpg://", "postgres+asyncpg://"):
+        if url.startswith(async_prefix):
+            return "postgresql+psycopg2://" + url[len(async_prefix):]
+
+    # Already a sync URL (e.g. postgresql://, sqlite:///)
+    return url
 
 
 def run_migrations_offline() -> None:
-    url = get_url()
+    url = get_sync_url()
     context.configure(
         url=url,
         target_metadata=target_metadata,
@@ -39,7 +61,7 @@ def run_migrations_offline() -> None:
 
 def run_migrations_online() -> None:
     configuration = config.get_section(config.config_ini_section, {})
-    configuration["sqlalchemy.url"] = get_url()
+    configuration["sqlalchemy.url"] = get_sync_url()
     connectable = engine_from_config(
         configuration,
         prefix="sqlalchemy.",

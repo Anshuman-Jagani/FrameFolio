@@ -63,9 +63,9 @@ export default function App() {
 
   if (!booted) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-cream-50">
-        <div className="flex items-center gap-3 text-taupe-700">
-          <div className="h-4 w-4 rounded-full border-2 border-burgundy-500 border-t-transparent animate-spin" />
+      <div className="min-h-screen flex items-center justify-center bg-parchment-100">
+        <div className="flex items-center gap-3 text-olive-500">
+          <div className="h-4 w-4 rounded-full border-2 border-pine-500 border-t-transparent animate-spin" />
           <span className="text-sm font-medium">Loading...</span>
         </div>
       </div>
@@ -74,7 +74,7 @@ export default function App() {
 
   return (
     <ToastProvider>
-      <div className="min-h-screen flex flex-col bg-cream-50 text-charcoal-700">
+      <div className="min-h-screen flex flex-col bg-parchment-100 text-charcoal-700">
         <Navbar />
         <main className="flex-1 page-transition">
           <ErrorBoundary>

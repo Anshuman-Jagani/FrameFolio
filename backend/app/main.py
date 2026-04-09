@@ -51,20 +51,6 @@ def create_application() -> FastAPI:
     )
 
     # ── Global exception handlers ──
-    @app.middleware("http")
-    async def add_cors_headers(request, call_next):
-        response = await call_next(request)
-        origin = request.headers.get("Origin")
-        if origin in settings.ALLOWED_ORIGINS:
-            response.headers["Access-Control-Allow-Origin"] = origin
-            response.headers["Access-Control-Allow-Credentials"] = "true"
-            response.headers["Access-Control-Allow-Headers"] = (
-                "Content-Type, Authorization"
-            )
-            response.headers["Access-Control-Allow-Methods"] = (
-                "GET, POST, PUT, PATCH, DELETE, OPTIONS"
-            )
-        return response
 
     @app.exception_handler(RequestValidationError)
     async def validation_exception_handler(

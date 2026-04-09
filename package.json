@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "lucide-react": "^1.7.0"
+    "lucide-react": "^1.7.0",
+    "react-dates": "^21.8.0"
   }
 }

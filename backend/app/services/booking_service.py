@@ -1,3 +1,5 @@
+from fastapi import BackgroundTasks
+import logging
 import uuid
 import math
 from datetime import datetime, timezone, timedelta
@@ -11,6 +13,8 @@ from app.core.exceptions import (
     BadRequestException,
     ConflictException,
 )
+
+logger = logging.getLogger(__name__)
 from app.models.booking import Booking, Review, BookingStatus
 from app.models.photographer import PhotographerProfile
 from app.models.availability import Availability
@@ -47,8 +51,9 @@ ALLOWED_TRANSITIONS: dict[BookingStatus, set[BookingStatus]] = {
 
 
 class BookingService:
-    def __init__(self, db: AsyncSession):
+    def __init__(self, db: AsyncSession, background_tasks: Optional[BackgroundTasks] = None):
         self.db = db
+        self.background_tasks = background_tasks
 
     async def enrich_booking_reads(self, bookings: list[Booking]) -> list[BookingRead]:
         """Attach client and photographer display names for dashboard UIs."""
@@ -115,16 +120,16 @@ class BookingService:
             raise BadRequestException("Booking must be scheduled in the future")
 
         # Global photographer availability gate.
-        # If the photographer is not accepting enquiries, block all bookings.
         if not photographer.is_available:
             raise BadRequestException("Photographer is not accepting bookings")
 
         # 1. Validate availability: block only if row exists and is_booked; else allow with soft bypass
+        # Use with_for_update() to prevent race conditions during concurrent booking attempts
         avail_result = await self.db.execute(
             select(Availability).where(
                 Availability.photographer_id == data.photographer_id,
                 Availability.date == data.date
-            )
+            ).with_for_update()
         )
         availability = avail_result.scalar_one_or_none()
         if availability:
@@ -163,25 +168,23 @@ class BookingService:
         await self.db.flush()
         await self.db.refresh(booking)
 
-        # Notify photographer via email
-        photographer_user_result = await self.db.execute(
+        # Notify photographer via background tasks
+        ph_user_res = await self.db.execute(
             select(User).where(User.id == photographer.user_id)
         )
-        photographer_user = photographer_user_result.scalar_one_or_none()
+        ph_user = ph_user_res.scalar_one_or_none()
         if (
-            photographer_user
-            and photographer_user.email
+            ph_user
+            and ph_user.email
             and settings.SMTP_USER
             and settings.SMTP_PASSWORD
+            and self.background_tasks
         ):
-            import asyncio
-
-            asyncio.create_task(
-                EmailService.send_booking_request_email(
-                    photographer_email=photographer_user.email,
-                    client_name=client.full_name or client.email,
-                    date=str(data.date),
-                )
+            self.background_tasks.add_task(
+                EmailService.send_booking_request_email,
+                photographer_email=ph_user.email,
+                client_name=client.full_name or client.email,
+                date=str(data.date),
             )
 
         return booking
@@ -200,13 +203,13 @@ class BookingService:
 
         # Permission checks
         is_client = current_user.id == booking.client_id
-        ph_result = await self.db.execute(
+        ph_prof_res = await self.db.execute(
             select(PhotographerProfile).where(
                 PhotographerProfile.user_id == current_user.id,
                 PhotographerProfile.id == booking.photographer_id,
             )
         )
-        is_photographer = ph_result.scalar_one_or_none() is not None
+        is_photographer = ph_prof_res.scalar_one_or_none() is not None
 
         if data.status in {BookingStatus.accepted, BookingStatus.rejected} and not is_photographer:
             raise ForbiddenException("Only the photographer can accept or reject a booking")
@@ -214,45 +217,43 @@ class BookingService:
             raise ForbiddenException("Only the client or photographer can mark booking as completed")
         if data.status == BookingStatus.completed_by_admin and current_user.role.value != "admin":
             raise ForbiddenException("Only an admin can forcibly complete a booking")
+        
         if data.status == BookingStatus.cancelled:
             if current_user.role.value == "admin":
-                pass  # Admin override
+                pass
             elif not (is_client or is_photographer):
                 raise ForbiddenException("Only the client or photographer can cancel")
             else:
-                booking_datetime = datetime.combine(booking.date, datetime.min.time()).replace(tzinfo=timezone.utc)
+                booking_dt = datetime.combine(booking.date, datetime.min.time()).replace(tzinfo=timezone.utc)
                 now = datetime.now(timezone.utc)
-                
-                # If they are both for some strange reason, validate based on whichever role they are operating under...
-                # We'll prioritize the stricter photographer bounds if they are the photographer for this booking
                 if is_photographer:
-                    if now > booking_datetime - timedelta(days=3):
-                        raise BadRequestException("Photographer cannot cancel within 3 days of the scheduled date")
+                    if now > booking_dt - timedelta(days=3):
+                        raise BadRequestException("Photographer cannot cancel within 3 days")
                 elif is_client:
-                    if now > booking_datetime - timedelta(hours=48):
-                        raise BadRequestException("Client cannot cancel within 48 hours of the scheduled date")
+                    if now > booking_dt - timedelta(hours=48):
+                        raise BadRequestException("Client cannot cancel within 48 hours")
 
         # Unlock availability if cancelled and currently accepted
         if data.status == BookingStatus.cancelled and booking.status == BookingStatus.accepted:
-            avail_result = await self.db.execute(
+            avail_res = await self.db.execute(
                 select(Availability).where(
                     Availability.photographer_id == booking.photographer_id,
                     Availability.date == booking.date
-                )
+                ).with_for_update()
             )
-            availability = avail_result.scalar_one_or_none()
+            availability = avail_res.scalar_one_or_none()
             if availability:
                 availability.is_booked = False
 
         # Lock availability and prevent double bookings on acceptance
         if data.status == BookingStatus.accepted:
-            avail_result = await self.db.execute(
+            avail_res = await self.db.execute(
                 select(Availability).where(
                     Availability.photographer_id == booking.photographer_id,
                     Availability.date == booking.date
-                )
+                ).with_for_update()
             )
-            availability = avail_result.scalar_one_or_none()
+            availability = avail_res.scalar_one_or_none()
             if not availability:
                 raise NotFoundException("Availability record missing for this date")
             if availability.is_booked:
@@ -261,8 +262,16 @@ class BookingService:
             # Lock it
             availability.is_booked = True
             
-            # Prevent double booking globally: Auto-reject all other pending requests for this exact date
-            other_bookings_result = await self.db.execute(
+            # Increment total_bookings on photographer profile
+            ph_profile_res = await self.db.execute(
+                select(PhotographerProfile).where(PhotographerProfile.id == booking.photographer_id)
+            )
+            ph_profile = ph_profile_res.scalar_one_or_none()
+            if ph_profile:
+                ph_profile.total_bookings += 1
+            
+            # Auto-reject competitors
+            other_bookings_res = await self.db.execute(
                 select(Booking).where(
                     Booking.photographer_id == booking.photographer_id,
                     Booking.date == booking.date,
@@ -270,29 +279,28 @@ class BookingService:
                     Booking.id != booking.id
                 )
             )
-            other_bookings = other_bookings_result.scalars().all()
-            for other_booking in other_bookings:
-                other_booking.status = BookingStatus.rejected
+            for other_b in other_bookings_res.scalars().all():
+                other_b.status = BookingStatus.rejected
 
         booking.status = data.status
 
         await self.db.flush()
         await self.db.refresh(booking)
 
-        # Handle Email Notifications via fire-and-forget
-        if data.status in {BookingStatus.accepted, BookingStatus.completed_by_client, BookingStatus.completed_by_admin}:
-            client_user_result = await self.db.execute(select(User).where(User.id == booking.client_id))
-            client_user = client_user_result.scalar_one_or_none()
+        # Handle Email Notifications
+        if data.status in {BookingStatus.accepted, BookingStatus.completed_by_client, BookingStatus.completed_by_admin} and self.background_tasks:
+            client_user_res = await self.db.execute(select(User).where(User.id == booking.client_id))
+            client_user = client_user_res.scalar_one_or_none()
             
-            photographer_result = await self.db.execute(select(PhotographerProfile).where(PhotographerProfile.id == booking.photographer_id))
-            photographer_profile = photographer_result.scalar_one_or_none()
-            photographer_name = "your photographer"
+            ph_profile_res = await self.db.execute(select(PhotographerProfile).where(PhotographerProfile.id == booking.photographer_id))
+            ph_profile = ph_profile_res.scalar_one_or_none()
             
-            if photographer_profile:
-                ph_user_result = await self.db.execute(select(User).where(User.id == photographer_profile.user_id))
-                ph_user = ph_user_result.scalar_one_or_none()
+            ph_name = "your photographer"
+            if ph_profile:
+                ph_user_res = await self.db.execute(select(User).where(User.id == ph_profile.user_id))
+                ph_user = ph_user_res.scalar_one_or_none()
                 if ph_user:
-                    photographer_name = ph_user.full_name or "your photographer"
+                    ph_name = ph_user.full_name or "your photographer"
 
             if (
                 client_user
@@ -300,28 +308,22 @@ class BookingService:
                 and settings.SMTP_USER
                 and settings.SMTP_PASSWORD
             ):
-                import asyncio
-
                 if data.status == BookingStatus.accepted:
-                    asyncio.create_task(
-                        EmailService.send_booking_accepted_email(
-                            client_email=client_user.email,
-                            photographer_name=photographer_name,
-                            date=str(booking.date),
-                        )
+                    self.background_tasks.add_task(
+                        EmailService.send_booking_accepted_email,
+                        client_email=client_user.email,
+                        photographer_name=ph_name,
+                        date=str(booking.date),
                     )
-                elif data.status in {
-                    BookingStatus.completed_by_client,
-                    BookingStatus.completed_by_admin,
-                }:
-                    asyncio.create_task(
-                        EmailService.send_booking_completed_email(
-                            client_email=client_user.email,
-                            photographer_name=photographer_name,
-                        )
+                elif data.status in {BookingStatus.completed_by_client, BookingStatus.completed_by_admin}:
+                    self.background_tasks.add_task(
+                        EmailService.send_booking_completed_email,
+                        client_email=client_user.email,
+                        photographer_name=ph_name,
                     )
 
         return booking
+
 
     async def list_user_bookings(
         self,
@@ -413,3 +415,23 @@ class BookingService:
         await self.db.flush()
         await self.db.refresh(review)
         return review
+
+    async def mark_as_paid(self, booking_id: uuid.UUID, amount_cents: int) -> None:
+        """
+        Invoked by PaymentService when a linked Stripe payment succeeds.
+        Updates advance/remaining amounts.
+        """
+        booking = await self.get_or_404(booking_id)
+        amount_decimal = amount_cents / 100.0
+
+        # Logic: we subtract from remaining, and increment advance (paid)
+        # In a real app, you might check if this is the first payment (deposit)
+        # or a final payment. For now, we just update the totals.
+        booking.advance_amount = float(booking.advance_amount) + amount_decimal
+        booking.remaining_amount = max(0, float(booking.remaining_amount) - amount_decimal)
+
+        await self.db.flush()
+        logger.info(
+            "Booking %s updated after payment of %s. New remaining: %s",
+            booking.id, amount_decimal, booking.remaining_amount
+        )

@@ -58,5 +58,13 @@ class Settings(BaseSettings):
     DEFAULT_PAGE_SIZE: int = 20
     MAX_PAGE_SIZE: int = 100
 
+    # Stripe
+    STRIPE_SECRET_KEY: str = ""
+    STRIPE_PUBLISHABLE_KEY: str = ""
+    STRIPE_WEBHOOK_SECRET: str = ""
+
+    # Frontend URL (used for Stripe success/cancel redirect URLs)
+    FRONTEND_URL: str = "http://localhost:5173"
+
 
 settings = Settings()

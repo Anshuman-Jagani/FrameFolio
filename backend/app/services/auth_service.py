@@ -1,4 +1,5 @@
 from datetime import timedelta
+import uuid
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 
@@ -80,7 +81,6 @@ class AuthService:
         if payload.get("type") != "refresh":
             raise UnauthorizedException("Refresh token required")
 
-        import uuid
         result = await self.db.execute(
             select(User).where(User.id == uuid.UUID(payload["sub"]))
         )

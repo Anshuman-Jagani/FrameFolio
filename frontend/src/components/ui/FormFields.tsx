@@ -2,7 +2,7 @@
 import type { InputHTMLAttributes, SelectHTMLAttributes } from 'react'
 
 const inputBase =
-  'w-full rounded-2xl border border-taupe-100 bg-cream-50 px-4 py-2.5 text-sm text-charcoal-700 placeholder:text-taupe-500 outline-none focus:ring-2 focus:ring-burgundy-500/30 transition-shadow disabled:opacity-60'
+  'w-full rounded-2xl border border-parchment-200 bg-parchment-100 px-4 py-2.5 text-sm text-charcoal-700 placeholder:text-copper-500 outline-none focus:ring-2 focus:ring-pine-500/30 transition-shadow disabled:opacity-60'
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string
@@ -13,7 +13,7 @@ export function Input({ label, id, className = '', ...props }: InputProps) {
   return (
     <div>
       {label && (
-        <label className="block text-xs font-medium text-taupe-700 mb-1.5" htmlFor={id}>
+        <label className="block text-xs font-medium text-olive-500 mb-1.5" htmlFor={id}>
           {label}
         </label>
       )}
@@ -31,7 +31,7 @@ export function Select({ label, id, className = '', children, ...props }: Select
   return (
     <div>
       {label && (
-        <label className="block text-xs font-medium text-taupe-700 mb-1.5" htmlFor={id}>
+        <label className="block text-xs font-medium text-olive-500 mb-1.5" htmlFor={id}>
           {label}
         </label>
       )}

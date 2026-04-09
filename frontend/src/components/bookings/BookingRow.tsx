@@ -35,15 +35,15 @@ export default function BookingRow({
   const isCompleted = booking.status === 'completed_by_client' || booking.status === 'completed_by_admin'
 
   return (
-    <div className="rounded-2xl border border-taupe-100 bg-cream-50 p-4 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+    <div className="rounded-2xl border border-parchment-200 bg-parchment-100 p-4 flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
       <div className="min-w-0 flex-1 space-y-2">
         <div className="font-semibold text-charcoal-700 truncate">{partnerTitle}</div>
-        <div className="text-sm text-taupe-700">
+        <div className="text-sm text-olive-500">
           <span className="font-medium text-charcoal-600">{booking.date}</span>
-          <span className="mx-2 text-taupe-300">·</span>
+          <span className="mx-2 text-copper-300">·</span>
           <span>{formatAed(booking.price)} total</span>
         </div>
-        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-taupe-600">
+        <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-copper-600">
           <span>Advance {formatAed(booking.advanceAmount)}</span>
           <span>Balance {formatAed(booking.remainingAmount)}</span>
         </div>
@@ -66,7 +66,7 @@ export default function BookingRow({
               <button
                 type="button"
                 disabled={!canAct}
-                className="rounded-xl bg-burgundy-500 text-cream-50 px-4 py-2 text-sm font-medium hover:bg-burgundy-600 transition-colors disabled:opacity-50"
+                className="rounded-xl bg-pine-500 text-parchment-50 px-4 py-2 text-sm font-medium hover:bg-pine-600 transition-colors disabled:opacity-50"
                 onClick={onMessage}
               >
                 Message
@@ -111,7 +111,7 @@ export default function BookingRow({
                 <button
                   type="button"
                   disabled={!canAct}
-                  className="rounded-xl bg-burgundy-500 text-white px-4 py-2 text-sm font-medium hover:bg-burgundy-600 transition-colors disabled:opacity-50"
+                  className="rounded-xl bg-pine-500 text-white px-4 py-2 text-sm font-medium hover:bg-pine-600 transition-colors disabled:opacity-50"
                   onClick={onLeaveReview}
                 >
                   Leave a Review

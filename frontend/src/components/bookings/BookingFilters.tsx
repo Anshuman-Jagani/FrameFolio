@@ -29,13 +29,13 @@ export default function BookingFilters({ value, onChange, counts }: Props) {
             className={[
               'rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors',
               active
-                ? 'border-burgundy-500 bg-burgundy-500 text-cream-50'
-                : 'border-taupe-200 bg-cream-50 text-taupe-700 hover:border-taupe-300 hover:bg-cream-100',
+                ? 'border-pine-500 bg-pine-500 text-parchment-50'
+                : 'border-parchment-200 bg-parchment-100 text-olive-500 hover:border-parchment-200 hover:bg-parchment-200',
             ].join(' ')}
           >
             {o.label}
             {n !== undefined && n > 0 ? (
-              <span className={active ? ' opacity-90' : ' text-taupe-500'}>
+              <span className={active ? ' opacity-90' : ' text-copper-500'}>
                 {' '}
                 ({n})
               </span>

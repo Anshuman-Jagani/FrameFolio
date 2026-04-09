@@ -144,9 +144,9 @@ export default function AdminDashboardPage() {
   const StatCard = ({ label, value, icon: Icon }: { 
     label: string, value: number | string, icon: typeof LayoutList
   }) => (
-    <div className="rounded-2xl border border-taupe-100 bg-cream-50 px-5 py-4 relative">
-      <Icon className="absolute top-4 right-4 w-5 h-5 text-taupe-400" />
-      <div className="text-xs font-semibold uppercase tracking-wide text-taupe-600">{label}</div>
+    <div className="rounded-2xl border border-parchment-200 bg-parchment-100 px-5 py-4 relative">
+      <Icon className="absolute top-4 right-4 w-5 h-5 text-copper-400" />
+      <div className="text-xs font-semibold uppercase tracking-wide text-copper-600">{label}</div>
       <div className="text-2xl font-serif font-semibold text-charcoal-700 mt-1">{value}</div>
     </div>
   )
@@ -156,7 +156,7 @@ export default function AdminDashboardPage() {
       <div className="lg:grid lg:grid-cols-[260px_1fr] lg:gap-8 items-start">
         {/* Sidebar */}
         <aside className="hidden lg:block sticky top-20">
-          <nav className="rounded-3xl border-r border-taupe-100 bg-cream-100/60 p-3 shadow-sm">
+          <nav className="rounded-3xl border-r border-parchment-200 bg-parchment-200/60 p-3 shadow-sm">
             <div className="flex flex-col gap-1">
               {[
                 { key: 'overview', label: 'Overview', icon: LayoutList },
@@ -176,8 +176,8 @@ export default function AdminDashboardPage() {
                     onClick={() => setTab(item.key as Tab)}
                     className={`w-full text-left rounded-xl px-4 py-3 text-sm font-semibold transition-all flex items-center gap-3 ${
                       isActive 
-                        ? 'bg-burgundy-500 text-white' 
-                        : 'text-taupe-700 hover:bg-cream-200'
+                        ? 'bg-pine-500 text-white' 
+                        : 'text-olive-500 hover:bg-parchment-200'
                     }`}
                   >
                     <Icon className="w-5 h-5" />
@@ -186,13 +186,13 @@ export default function AdminDashboardPage() {
                 )
               })}
 
-              <div className="my-3 border-t border-taupe-100" />
+              <div className="my-3 border-t border-parchment-200" />
 
               <div className="pt-3">
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="w-full text-left rounded-xl px-4 py-3 text-sm font-semibold transition-all flex items-center gap-3 text-taupe-600 hover:bg-cream-200"
+                  className="w-full text-left rounded-xl px-4 py-3 text-sm font-semibold transition-all flex items-center gap-3 text-copper-600 hover:bg-parchment-200"
                 >
                   <LogOut className="w-5 h-5" />
                   Logout
@@ -223,8 +223,8 @@ export default function AdminDashboardPage() {
                   onClick={() => setTab(item.key as Tab)}
                   className={`whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold transition-all flex items-center gap-2 ${
                     isActive 
-                      ? 'bg-burgundy-500 text-white' 
-                      : 'bg-cream-100 text-taupe-700'
+                      ? 'bg-pine-500 text-white' 
+                      : 'bg-parchment-200 text-olive-500'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -239,7 +239,7 @@ export default function AdminDashboardPage() {
             <h1 className="text-3xl sm:text-4xl font-serif font-semibold text-charcoal-700">
               {getGreeting()}, {user?.fullName || user?.email?.split('@')[0] || 'Admin'}!
             </h1>
-            <p className="mt-2 text-taupe-700">
+            <p className="mt-2 text-olive-500">
               Manage the platform, approve photographers, and monitor bookings.
             </p>
           </div>
@@ -274,45 +274,45 @@ export default function AdminDashboardPage() {
               <div className="grid md:grid-cols-3 gap-4">
                 <div 
                   onClick={() => setTab('approvals')}
-                  className="cursor-pointer rounded-2xl border border-taupe-200 bg-cream-50 p-6 hover:bg-cream-100 transition-colors group"
+                  className="cursor-pointer rounded-2xl border border-parchment-200 bg-parchment-100 p-6 hover:bg-parchment-200 transition-colors group"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-taupe-200 text-taupe-700 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-2xl bg-copper-200 text-olive-500 flex items-center justify-center">
                       <UserCheck className="w-6 h-6" />
                     </div>
                     <div>
                       <div className="font-semibold text-charcoal-700">Pending Approvals</div>
-                      <div className="text-sm text-taupe-600">{pendingPhotographers.length} photographer{pendingPhotographers.length !== 1 ? 's' : ''}</div>
+                      <div className="text-sm text-copper-600">{pendingPhotographers.length} photographer{pendingPhotographers.length !== 1 ? 's' : ''}</div>
                     </div>
                   </div>
                 </div>
 
                 <div 
                   onClick={() => setTab('bookings')}
-                  className="cursor-pointer rounded-2xl border border-taupe-200 bg-cream-50 p-6 hover:bg-cream-100 transition-colors group"
+                  className="cursor-pointer rounded-2xl border border-parchment-200 bg-parchment-100 p-6 hover:bg-parchment-200 transition-colors group"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-taupe-200 text-taupe-700 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-2xl bg-copper-200 text-olive-500 flex items-center justify-center">
                       <CalendarCheck className="w-6 h-6" />
                     </div>
                     <div>
                       <div className="font-semibold text-charcoal-700">View Bookings</div>
-                      <div className="text-sm text-taupe-600">{bookings.length} total bookings</div>
+                      <div className="text-sm text-copper-600">{bookings.length} total bookings</div>
                     </div>
                   </div>
                 </div>
 
                 <div 
                   onClick={() => setTab('analytics')}
-                  className="cursor-pointer rounded-2xl border border-taupe-200 bg-cream-50 p-6 hover:bg-cream-100 transition-colors group"
+                  className="cursor-pointer rounded-2xl border border-parchment-200 bg-parchment-100 p-6 hover:bg-parchment-200 transition-colors group"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-taupe-200 text-taupe-700 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-2xl bg-copper-200 text-olive-500 flex items-center justify-center">
                       <BarChart3 className="w-6 h-6" />
                     </div>
                     <div>
                       <div className="font-semibold text-charcoal-700">Analytics</div>
-                      <div className="text-sm text-taupe-600">Platform insights</div>
+                      <div className="text-sm text-copper-600">Platform insights</div>
                     </div>
                   </div>
                 </div>
@@ -322,11 +322,11 @@ export default function AdminDashboardPage() {
 
           {/* Approvals Tab */}
           {tab === 'approvals' && (
-            <div className="rounded-2xl border border-taupe-100 bg-cream-50 p-6">
+            <div className="rounded-2xl border border-parchment-200 bg-parchment-100 p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h2 className="text-lg font-serif font-semibold text-charcoal-700">Photographer Approvals</h2>
-                  <p className="text-sm text-taupe-500 mt-1">
+                  <p className="text-sm text-copper-500 mt-1">
                     {pendingPhotographers.length} pending request{pendingPhotographers.length !== 1 ? 's' : ''}
                   </p>
                 </div>
@@ -334,32 +334,32 @@ export default function AdminDashboardPage() {
 
               {pendingPhotographers.length === 0 ? (
                 <div className="text-center py-12">
-                  <UserCheck className="w-12 h-12 text-taupe-300 mx-auto mb-3" />
+                  <UserCheck className="w-12 h-12 text-copper-300 mx-auto mb-3" />
                   <div className="font-medium text-charcoal-700">No pending approvals</div>
-                  <div className="text-sm text-taupe-500 mt-1">New photographer registrations will appear here</div>
+                  <div className="text-sm text-copper-500 mt-1">New photographer registrations will appear here</div>
                 </div>
               ) : (
                 <div className="space-y-3">
                   {pendingPhotographers.map((p) => (
                     <div
                       key={p.id}
-                      className="flex items-center justify-between p-4 rounded-xl bg-cream-100/60 border border-taupe-100"
+                      className="flex items-center justify-between p-4 rounded-xl bg-parchment-200/60 border border-parchment-200"
                     >
                       <div className="flex items-center gap-4">
                         {p.image ? (
                           <img
                             src={p.image}
                             alt={p.name}
-                            className="w-14 h-14 rounded-xl object-cover border border-taupe-100"
+                            className="w-14 h-14 rounded-xl object-cover border border-parchment-200"
                           />
                         ) : (
-                          <div className="w-14 h-14 rounded-xl bg-burgundy-100 text-burgundy-700 flex items-center justify-center text-xl font-semibold">
+                          <div className="w-14 h-14 rounded-xl bg-pine-100 text-pine-700 flex items-center justify-center text-xl font-semibold">
                             {p.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                           </div>
                         )}
                         <div>
                           <div className="font-semibold text-charcoal-700">{p.name}</div>
-                          <div className="text-sm text-taupe-600">{p.category}</div>
+                          <div className="text-sm text-copper-600">{p.category}</div>
                         </div>
                       </div>
                       <div className="flex gap-2">
@@ -387,23 +387,23 @@ export default function AdminDashboardPage() {
 
           {/* Accounts Tab */}
           {tab === 'accounts' && (
-            <div className="rounded-2xl border border-taupe-100 bg-cream-50 p-6">
+            <div className="rounded-2xl border border-parchment-200 bg-parchment-100 p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h2 className="text-lg font-serif font-semibold text-charcoal-700">User Accounts</h2>
-                  <p className="text-sm text-taupe-500 mt-1">Manage users and their access</p>
+                  <p className="text-sm text-copper-500 mt-1">Manage users and their access</p>
                 </div>
                 <input
                   value={userSearch}
                   onChange={(e) => setUserSearch(e.target.value)}
                   placeholder="Search by name or email..."
-                  className="rounded-xl border border-taupe-100 bg-cream-50 px-4 py-2 text-sm max-w-xs"
+                  className="rounded-xl border border-parchment-200 bg-parchment-100 px-4 py-2 text-sm max-w-xs"
                 />
               </div>
 
-              <div className="overflow-x-auto rounded-xl border border-taupe-100">
+              <div className="overflow-x-auto rounded-xl border border-parchment-200">
                 <table className="min-w-full text-sm">
-                  <thead className="bg-cream-200/60 text-left text-taupe-700">
+                  <thead className="bg-parchment-200/60 text-left text-olive-500">
                     <tr>
                       <th className="px-4 py-3 font-semibold">Name</th>
                       <th className="px-4 py-3 font-semibold">Email</th>
@@ -414,15 +414,15 @@ export default function AdminDashboardPage() {
                   </thead>
                   <tbody>
                     {users.map((u) => (
-                      <tr key={u.id} className="border-t border-taupe-100 bg-cream-50">
+                      <tr key={u.id} className="border-t border-parchment-200 bg-parchment-100">
                         <td className="px-4 py-3 font-medium text-charcoal-700">{u.full_name || '—'}</td>
-                        <td className="px-4 py-3 text-taupe-700">{u.email}</td>
+                        <td className="px-4 py-3 text-olive-500">{u.email}</td>
                         <td className="px-4 py-3 capitalize">{u.role}</td>
                         <td className="px-4 py-3">
                           <span className={`inline-flex rounded-full px-2 py-0.5 text-xs font-semibold ${
                             u.status === 'active' ? 'bg-emerald-100 text-emerald-700' :
                             u.status === 'suspended' ? 'bg-rose-100 text-rose-700' :
-                            'bg-taupe-100 text-taupe-700'
+                            'bg-copper-100 text-olive-500'
                           }`}>
                             {u.status}
                           </span>
@@ -461,7 +461,7 @@ export default function AdminDashboardPage() {
                   </tbody>
                 </table>
                 {users.length === 0 && (
-                  <div className="p-8 text-center text-taupe-500">
+                  <div className="p-8 text-center text-copper-500">
                     No users found
                   </div>
                 )}
@@ -471,16 +471,16 @@ export default function AdminDashboardPage() {
 
           {/* Bookings Tab */}
           {tab === 'bookings' && (
-            <div className="rounded-2xl border border-taupe-100 bg-cream-50 p-6">
+            <div className="rounded-2xl border border-parchment-200 bg-parchment-100 p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h2 className="text-lg font-serif font-semibold text-charcoal-700">All Bookings</h2>
-                  <p className="text-sm text-taupe-500 mt-1">{bookings.length} booking{bookings.length !== 1 ? 's' : ''}</p>
+                  <p className="text-sm text-copper-500 mt-1">{bookings.length} booking{bookings.length !== 1 ? 's' : ''}</p>
                 </div>
                 <select
                   value={bookingStatusFilter}
                   onChange={(e) => setBookingStatusFilter(e.target.value)}
-                  className="rounded-xl border border-taupe-100 bg-cream-50 px-4 py-2 text-sm"
+                  className="rounded-xl border border-parchment-200 bg-parchment-100 px-4 py-2 text-sm"
                 >
                   <option value="">All statuses</option>
                   <option value="requested">Pending</option>
@@ -491,9 +491,9 @@ export default function AdminDashboardPage() {
                 </select>
               </div>
 
-              <div className="overflow-x-auto rounded-xl border border-taupe-100">
+              <div className="overflow-x-auto rounded-xl border border-parchment-200">
                 <table className="min-w-full text-sm">
-                  <thead className="bg-cream-200/60 text-left text-taupe-700">
+                  <thead className="bg-parchment-200/60 text-left text-olive-500">
                     <tr>
                       <th className="px-4 py-3 font-semibold">Booking</th>
                       <th className="px-4 py-3 font-semibold">Client</th>
@@ -505,8 +505,8 @@ export default function AdminDashboardPage() {
                   </thead>
                   <tbody>
                     {bookings.map((b) => (
-                      <tr key={b.id} className="border-t border-taupe-100 bg-cream-50">
-                        <td className="px-4 py-3 font-mono text-xs text-taupe-600">{b.id.slice(0, 8)}…</td>
+                      <tr key={b.id} className="border-t border-parchment-200 bg-parchment-100">
+                        <td className="px-4 py-3 font-mono text-xs text-copper-600">{b.id.slice(0, 8)}…</td>
                         <td className="px-4 py-3 text-charcoal-700">{b.clientName || '—'}</td>
                         <td className="px-4 py-3 text-charcoal-700">{b.photographerName || '—'}</td>
                         <td className="px-4 py-3">{b.date}</td>
@@ -521,7 +521,7 @@ export default function AdminDashboardPage() {
                   </tbody>
                 </table>
                 {bookings.length === 0 && (
-                  <div className="p-8 text-center text-taupe-500">
+                  <div className="p-8 text-center text-copper-500">
                     No bookings found
                   </div>
                 )}
@@ -532,15 +532,15 @@ export default function AdminDashboardPage() {
           {/* Analytics Tab */}
           {tab === 'analytics' && (
             <div className="space-y-6">
-              <div className="rounded-2xl border border-taupe-100 bg-cream-50 p-6">
+              <div className="rounded-2xl border border-parchment-200 bg-parchment-100 p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h2 className="text-lg font-serif font-semibold text-charcoal-700">Analytics</h2>
-                    <p className="text-sm text-taupe-500 mt-1">Platform performance metrics</p>
+                    <p className="text-sm text-copper-500 mt-1">Platform performance metrics</p>
                   </div>
                   <button
                     type="button"
-                    className="rounded-xl border border-taupe-200 bg-cream-50 px-4 py-2 text-sm font-medium text-charcoal-700 hover:bg-cream-100 flex items-center gap-2"
+                    className="rounded-xl border border-parchment-200 bg-parchment-100 px-4 py-2 text-sm font-medium text-charcoal-700 hover:bg-parchment-200 flex items-center gap-2"
                   >
                     <Download className="w-4 h-4" />
                     Export
@@ -556,15 +556,15 @@ export default function AdminDashboardPage() {
                 </div>
 
                 <div className="grid gap-6 lg:grid-cols-2">
-                  <div className="rounded-xl border border-taupe-100 bg-cream-100/50 p-4">
+                  <div className="rounded-xl border border-parchment-200 bg-parchment-200/50 p-4">
                     <h3 className="text-sm font-semibold text-charcoal-700 mb-4">Bookings over time</h3>
-                    <div className="h-40 flex items-center justify-center text-sm text-taupe-500">
+                    <div className="h-40 flex items-center justify-center text-sm text-copper-500">
                       Chart placeholder — last 6 months
                     </div>
                   </div>
-                  <div className="rounded-xl border border-taupe-100 bg-cream-100/50 p-4">
+                  <div className="rounded-xl border border-parchment-200 bg-parchment-200/50 p-4">
                     <h3 className="text-sm font-semibold text-charcoal-700 mb-4">Revenue over time</h3>
-                    <div className="h-40 flex items-center justify-center text-sm text-taupe-500">
+                    <div className="h-40 flex items-center justify-center text-sm text-copper-500">
                       Chart placeholder — last 6 months
                     </div>
                   </div>
@@ -572,7 +572,7 @@ export default function AdminDashboardPage() {
               </div>
 
               {/* Top Photographers */}
-              <div className="rounded-2xl border border-taupe-100 bg-cream-50 p-6">
+              <div className="rounded-2xl border border-parchment-200 bg-parchment-100 p-6">
                 <h3 className="text-lg font-serif font-semibold text-charcoal-700 mb-4">Top Photographers</h3>
                 <div className="space-y-2">
                   {[
@@ -582,11 +582,11 @@ export default function AdminDashboardPage() {
                     { rank: 4, name: 'Layla Ahmed', bookings: 28, revenue: 14000 },
                     { rank: 5, name: 'Saeed Al Nuaimi', bookings: 24, revenue: 12000 },
                   ].map((p) => (
-                    <div key={p.rank} className="flex items-center justify-between p-3 rounded-lg bg-cream-100/60">
-                      <span className="text-taupe-700">
+                    <div key={p.rank} className="flex items-center justify-between p-3 rounded-lg bg-parchment-200/60">
+                      <span className="text-olive-500">
                         <span className="font-semibold text-charcoal-700">{p.rank}.</span> {p.name}
                       </span>
-                      <span className="text-sm text-taupe-500">{p.bookings} bookings · {formatAed(p.revenue)}</span>
+                      <span className="text-sm text-copper-500">{p.bookings} bookings · {formatAed(p.revenue)}</span>
                     </div>
                   ))}
                 </div>
@@ -596,24 +596,24 @@ export default function AdminDashboardPage() {
 
           {/* Commission Tab */}
           {tab === 'commission' && (
-            <div className="rounded-2xl border border-taupe-100 bg-cream-50 p-6">
+            <div className="rounded-2xl border border-parchment-200 bg-parchment-100 p-6">
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h2 className="text-lg font-serif font-semibold text-charcoal-700">Commission</h2>
-                  <p className="text-sm text-taupe-500 mt-1">Platform rate: {PLATFORM_COMMISSION_PCT}%</p>
+                  <p className="text-sm text-copper-500 mt-1">Platform rate: {PLATFORM_COMMISSION_PCT}%</p>
                 </div>
               </div>
 
-              <div className="rounded-xl border border-taupe-100 bg-cream-50 px-5 py-4 mb-6">
-                <div className="text-xs font-semibold uppercase text-taupe-600">Total Commission (AED)</div>
+              <div className="rounded-xl border border-parchment-200 bg-parchment-100 px-5 py-4 mb-6">
+                <div className="text-xs font-semibold uppercase text-copper-600">Total Commission (AED)</div>
                 <div className="text-2xl font-serif font-semibold text-charcoal-700 mt-1">
                   {formatAed((stats?.completed_bookings ?? 0) * 500 * (PLATFORM_COMMISSION_PCT / 100))}
                 </div>
               </div>
 
-              <div className="overflow-x-auto rounded-xl border border-taupe-100">
+              <div className="overflow-x-auto rounded-xl border border-parchment-200">
                 <table className="min-w-full text-sm">
-                  <thead className="bg-cream-200/60 text-left text-taupe-700">
+                  <thead className="bg-parchment-200/60 text-left text-olive-500">
                     <tr>
                       <th className="px-3 py-2 font-semibold">Booking</th>
                       <th className="px-3 py-2 font-semibold">Photographer</th>
@@ -624,7 +624,7 @@ export default function AdminDashboardPage() {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="border-t border-taupe-100 bg-cream-50">
+                    <tr className="border-t border-parchment-200 bg-parchment-100">
                       <td className="px-3 py-2 font-mono text-xs">8db781e0…</td>
                       <td className="px-3 py-2">Ahmed Al Mansoori</td>
                       <td className="px-3 py-2">{formatAed(500)}</td>
@@ -632,7 +632,7 @@ export default function AdminDashboardPage() {
                       <td className="px-3 py-2">{formatAed(75)}</td>
                       <td className="px-3 py-2">2024-01-15</td>
                     </tr>
-                    <tr className="border-t border-taupe-100 bg-cream-100/50">
+                    <tr className="border-t border-parchment-200 bg-parchment-200/50">
                       <td className="px-3 py-2 font-mono text-xs">9ac392f1…</td>
                       <td className="px-3 py-2">Fatima Hassan</td>
                       <td className="px-3 py-2">{formatAed(750)}</td>
@@ -649,34 +649,34 @@ export default function AdminDashboardPage() {
           {/* Support Tab */}
           {tab === 'support' && (
             <div className="space-y-6">
-              <div className="rounded-2xl border border-taupe-100 bg-cream-50 p-6">
+              <div className="rounded-2xl border border-parchment-200 bg-parchment-100 p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h2 className="text-lg font-serif font-semibold text-charcoal-700">Support Queries</h2>
-                    <p className="text-sm text-taupe-500 mt-1">Manage user inquiries</p>
+                    <p className="text-sm text-copper-500 mt-1">Manage user inquiries</p>
                   </div>
                 </div>
                 <div className="text-center py-12">
-                  <ClipboardList className="w-12 h-12 text-taupe-300 mx-auto mb-3" />
+                  <ClipboardList className="w-12 h-12 text-copper-300 mx-auto mb-3" />
                   <div className="font-medium text-charcoal-700">No support queries</div>
-                  <div className="text-sm text-taupe-500 mt-1">User inquiries will appear here</div>
+                  <div className="text-sm text-copper-500 mt-1">User inquiries will appear here</div>
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-taupe-100 bg-cream-50 p-6">
+              <div className="rounded-2xl border border-parchment-200 bg-parchment-100 p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h2 className="text-lg font-serif font-semibold text-charcoal-700">FAQ Management</h2>
-                    <p className="text-sm text-taupe-500 mt-1">Manage frequently asked questions</p>
+                    <p className="text-sm text-copper-500 mt-1">Manage frequently asked questions</p>
                   </div>
-                  <button type="button" className="rounded-xl bg-burgundy-500 text-white px-4 py-2 text-sm font-medium hover:bg-burgundy-600">
+                  <button type="button" className="rounded-xl bg-pine-500 text-white px-4 py-2 text-sm font-medium hover:bg-pine-600">
                     Add FAQ
                   </button>
                 </div>
                 <div className="text-center py-12">
-                  <ClipboardList className="w-12 h-12 text-taupe-300 mx-auto mb-3" />
+                  <ClipboardList className="w-12 h-12 text-copper-300 mx-auto mb-3" />
                   <div className="font-medium text-charcoal-700">No FAQs yet</div>
-                  <div className="text-sm text-taupe-500 mt-1">Add FAQs to help users</div>
+                  <div className="text-sm text-copper-500 mt-1">Add FAQs to help users</div>
                 </div>
               </div>
             </div>

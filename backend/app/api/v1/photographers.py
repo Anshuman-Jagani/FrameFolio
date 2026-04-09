@@ -1,4 +1,5 @@
 import uuid
+from datetime import date
 from typing import Optional
 from fastapi import APIRouter, Query
 
@@ -29,6 +30,7 @@ async def list_photographers(
     specialization: Optional[str] = Query(default=None),
     is_available: Optional[bool] = Query(default=None),
     is_featured: Optional[bool] = Query(default=None),
+    date: Optional[date] = Query(default=None),
 ):
     """Public endpoint: browse and filter photographer profiles."""
     service = PhotographerService(db)
@@ -42,6 +44,7 @@ async def list_photographers(
         specialization=specialization,
         is_available=is_available,
         is_featured=is_featured,
+        available_on_date=date,
     )
 
 

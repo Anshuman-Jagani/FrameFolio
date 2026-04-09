@@ -54,17 +54,17 @@ export default function LandingPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
       {/* Hero */}
-      <section className="rounded-3xl border border-taupe-100 bg-gradient-to-br from-cream-200 via-cream-100 to-cream-50 shadow-sm overflow-hidden">
+      <section className="rounded-3xl border border-parchment-200 bg-gradient-to-br from-parchment-200 via-parchment-100 to-parchment-100 shadow-sm overflow-hidden">
         <div className="p-8 sm:p-10 grid lg:grid-cols-2 gap-8 items-center">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-taupe-100 bg-cream-50/80 px-3 py-1 text-sm font-medium text-taupe-700">
-              <span className="h-2 w-2 rounded-full bg-burgundy-500" />
+            <div className="inline-flex items-center gap-2 rounded-full border border-parchment-200 bg-parchment-100/80 px-3 py-1 text-sm font-medium text-olive-500">
+              <span className="h-2 w-2 rounded-full bg-pine-500" />
               Find your perfect photographer
             </div>
             <h1 className="mt-4 text-4xl sm:text-5xl font-serif font-semibold tracking-tight text-charcoal-700">
               Premium photography, booked with ease.
             </h1>
-            <p className="mt-3 text-taupe-700 max-w-xl">
+            <p className="mt-3 text-olive-500 max-w-xl">
               Browse top photographers, request a booking, and message instantly
               using a modern, mobile-friendly marketplace UI.
             </p>
@@ -79,12 +79,12 @@ export default function LandingPage() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search by name or category (e.g., Wedding)"
-                  className="flex-1 rounded-2xl border border-taupe-100 bg-cream-50 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-burgundy-500/30 text-charcoal-700 placeholder:text-taupe-500 shadow-sm"
+                  className="flex-1 rounded-2xl border border-parchment-200 bg-parchment-100 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-pine-500/30 text-charcoal-700 placeholder:text-copper-500 shadow-sm"
                 />
                 <Link
                   to="/photographers"
                   state={{ query }}
-                  className="rounded-2xl bg-burgundy-500 text-cream-50 px-8 py-3 text-sm font-medium hover:bg-burgundy-600 transition-colors text-center"
+                  className="rounded-2xl bg-pine-500 text-parchment-50 px-8 py-3 text-sm font-medium hover:bg-pine-600 transition-colors text-center"
                 >
                   Search
                 </Link>
@@ -94,13 +94,13 @@ export default function LandingPage() {
             <div className="mt-6 flex flex-wrap gap-3">
               <Link
                 to="/photographers"
-                className="rounded-xl bg-burgundy-500 text-white px-6 py-3 text-sm font-medium hover:bg-burgundy-600 transition-colors text-center"
+                className="rounded-xl bg-pine-500 text-white px-6 py-3 text-sm font-medium hover:bg-pine-600 transition-colors text-center"
               >
                 Browse photographers
               </Link>
               <Link
                 to="/register?role=photographer"
-                className="rounded-xl border border-taupe-300 text-charcoal-700 hover:bg-cream-100 px-6 py-3 text-sm font-medium transition-colors text-center"
+                className="rounded-xl border border-parchment-200 text-charcoal-700 hover:bg-parchment-200 px-6 py-3 text-sm font-medium transition-colors text-center"
               >
                 Join as photographer
               </Link>
@@ -108,18 +108,18 @@ export default function LandingPage() {
           </div>
 
           <div className="relative">
-            <div className="absolute -top-6 -left-6 w-24 h-24 rounded-full bg-burgundy-500/10 blur-xl" />
-            <div className="absolute -bottom-10 -right-8 w-28 h-28 rounded-full bg-taupe-500/10 blur-xl" />
+            <div className="absolute -top-6 -left-6 w-24 h-24 rounded-full bg-pine-500/10 blur-xl" />
+            <div className="absolute -bottom-10 -right-8 w-28 h-28 rounded-full bg-copper-500/10 blur-xl" />
 
-            <div className="rounded-3xl bg-cream-50/80 border border-taupe-100 border-t-2 border-burgundy-400 p-5 shadow-sm">
+            <div className="rounded-3xl bg-parchment-100/80 border border-parchment-200 border-t-2 border-pine-400 p-5 shadow-sm">
               <div className="flex items-center justify-between">
                 <div>
-                  <div className="text-sm font-semibold text-taupe-700">
+                  <div className="text-sm font-semibold text-olive-500">
                     Featured photographers
                   </div>
                   <div className="text-2xl font-serif font-semibold mt-1 text-charcoal-700">Top rated picks</div>
                 </div>
-                <span className="rounded-full bg-burgundy-100 text-burgundy-700 text-xs font-semibold px-3 py-1">★ Top Rated</span>
+                <span className="rounded-full bg-pine-100 text-pine-700 text-xs font-semibold px-3 py-1">★ Top Rated</span>
               </div>
 
               <div className="mt-5 grid gap-4">
@@ -129,17 +129,17 @@ export default function LandingPage() {
                       <img
                         src={p.image}
                         alt={p.name}
-                        className="h-12 w-12 rounded-full object-cover border border-taupe-100"
+                        className="h-12 w-12 rounded-full object-cover border border-parchment-200"
                         loading="lazy"
                       />
                     ) : (
-                      <div className="h-12 w-12 rounded-full bg-burgundy-100 text-burgundy-700 flex items-center justify-center text-sm font-semibold border border-taupe-100">
+                      <div className="h-12 w-12 rounded-full bg-pine-100 text-pine-700 flex items-center justify-center text-sm font-semibold border border-parchment-200">
                         {p.name.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()}
                       </div>
                     )}
                     <div className="flex-1">
                       <div className="font-semibold text-charcoal-700">{p.name}</div>
-                      <div className="text-sm text-taupe-700">
+                      <div className="text-sm text-olive-500">
                         {p.category} · {p.rating.toFixed(1)} rating
                       </div>
                     </div>
@@ -147,7 +147,7 @@ export default function LandingPage() {
                       <div className="text-sm font-semibold text-charcoal-700">{formatAed(p.price)}</div>
                       <Link
                         to={`/photographers/${p.id}/booking`}
-                        className="text-xs text-burgundy-500 font-medium hover:underline"
+                        className="text-xs text-pine-500 font-medium hover:underline"
                       >
                         Book
                       </Link>
@@ -161,7 +161,7 @@ export default function LandingPage() {
       </section>
 
       {/* How it works */}
-      <section className="mt-12 rounded-3xl border border-taupe-100 bg-cream-100/80 p-8 sm:p-10 shadow-sm">
+      <section className="mt-12 rounded-3xl border border-parchment-200 bg-parchment-200/80 p-8 sm:p-10 shadow-sm">
         <h2 className="text-2xl font-serif font-semibold text-charcoal-700 text-center">
           How FrameFolio works
         </h2>
@@ -171,26 +171,26 @@ export default function LandingPage() {
             { step: '2', title: 'Book', body: 'Request a date, pay your advance securely, and message your photographer.' },
             { step: '3', title: 'Shoot', body: 'Shoot day support, completion, and reviews — all in one place.' },
           ].map((s) => (
-            <div key={s.step} className="rounded-2xl border border-taupe-100 bg-cream-50 p-6">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-burgundy-500 text-cream-50 font-serif text-xl font-semibold">
+            <div key={s.step} className="rounded-2xl border border-parchment-200 bg-parchment-100 p-6">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-pine-500 text-parchment-50 font-serif text-xl font-semibold">
                 {s.step}
               </div>
               <div className="mt-4 font-serif text-lg font-semibold text-charcoal-700">{s.title}</div>
-              <p className="mt-2 text-sm text-taupe-700">{s.body}</p>
+              <p className="mt-2 text-sm text-olive-500">{s.body}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* Trust */}
-      <section className="mt-10 flex flex-wrap justify-center gap-4 text-sm text-taupe-700">
-        <span className="rounded-full border border-taupe-100 bg-cream-50 px-4 py-2">
+      <section className="mt-10 flex flex-wrap justify-center gap-4 text-sm text-olive-500">
+        <span className="rounded-full border border-parchment-200 bg-parchment-100 px-4 py-2">
           Verified photographer profiles
         </span>
-        <span className="rounded-full border border-taupe-100 bg-cream-50 px-4 py-2">
+        <span className="rounded-full border border-parchment-200 bg-parchment-100 px-4 py-2">
           Reviews from real bookings
         </span>
-        <span className="rounded-full border border-taupe-100 bg-cream-50 px-4 py-2">
+        <span className="rounded-full border border-parchment-200 bg-parchment-100 px-4 py-2">
           AED pricing · UAE-first marketplace
         </span>
       </section>
@@ -199,7 +199,7 @@ export default function LandingPage() {
       <section className="mt-10">
         <div className="flex items-center justify-between gap-4 flex-wrap">
           <h2 className="text-2xl font-serif font-semibold text-charcoal-700">Categories</h2>
-          <div className="text-sm text-taupe-700">
+          <div className="text-sm text-olive-500">
             Premium photographers across popular styles.
           </div>
         </div>
@@ -209,7 +209,7 @@ export default function LandingPage() {
               key={c}
               to="/photographers"
               state={{ category: c }}
-              className="rounded-2xl border border-taupe-100 bg-cream-50 px-4 py-3 text-sm font-medium text-taupe-700 hover:text-charcoal-700 hover:border-burgundy-500/40 hover:bg-burgundy-50/30 transition-colors text-center"
+              className="rounded-2xl border border-parchment-200 bg-parchment-100 px-4 py-3 text-sm font-medium text-olive-500 hover:text-charcoal-700 hover:border-pine-500/40 hover:bg-pine-50/30 transition-colors text-center"
             >
               {c}
             </Link>
@@ -221,7 +221,7 @@ export default function LandingPage() {
       <section className="mt-10">
         <div className="flex items-center justify-between gap-4 flex-wrap">
           <h2 className="text-2xl font-serif font-semibold text-charcoal-700">Photographers</h2>
-          <div className="text-sm text-taupe-700">
+          <div className="text-sm text-olive-500">
             Showing {results.length} premium profiles.
           </div>
         </div>
@@ -247,7 +247,7 @@ export default function LandingPage() {
         <div className="mt-7 flex justify-end">
           <Link
             to="/photographers"
-            className="rounded-2xl bg-burgundy-500 text-cream-50 px-5 py-3 text-sm font-medium hover:bg-burgundy-600 transition-colors"
+            className="rounded-2xl bg-pine-500 text-parchment-50 px-5 py-3 text-sm font-medium hover:bg-pine-600 transition-colors"
           >
             View all photographers
           </Link>

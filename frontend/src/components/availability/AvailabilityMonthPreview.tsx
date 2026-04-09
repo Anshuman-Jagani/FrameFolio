@@ -71,38 +71,38 @@ export default function AvailabilityMonthPreview() {
   }
 
   return (
-    <div className="rounded-2xl border border-taupe-100 bg-cream-50 p-4">
+    <div className="rounded-2xl border border-parchment-200 bg-parchment-100 p-4">
       <div className="flex items-center justify-between gap-2">
         <div className="text-sm font-semibold text-charcoal-700">Calendar preview</div>
         <div className="flex items-center gap-2">
           <button
             type="button"
             aria-label="Previous month"
-            className="rounded-lg border border-taupe-100 px-2 py-1 text-sm text-charcoal-700 hover:bg-cream-200"
+            className="rounded-lg border border-parchment-200 px-2 py-1 text-sm text-charcoal-700 hover:bg-parchment-200"
             onClick={() => shift(-1)}
           >
             ‹
           </button>
-          <span className="text-sm font-medium text-taupe-800 min-w-[140px] text-center">{title}</span>
+          <span className="text-sm font-medium text-copper-800 min-w-[140px] text-center">{title}</span>
           <button
             type="button"
             aria-label="Next month"
-            className="rounded-lg border border-taupe-100 px-2 py-1 text-sm text-charcoal-700 hover:bg-cream-200"
+            className="rounded-lg border border-parchment-200 px-2 py-1 text-sm text-charcoal-700 hover:bg-parchment-200"
             onClick={() => shift(1)}
           >
             ›
           </button>
         </div>
       </div>
-      <p className="mt-1 text-xs text-taupe-600">
+      <p className="mt-1 text-xs text-copper-600">
         Green = open day · Amber = booked/blocked · Dates loaded from your availability API.
       </p>
 
       {loading ? (
-        <div className="mt-4 h-40 rounded-xl bg-cream-200/60 animate-pulse" />
+        <div className="mt-4 h-40 rounded-xl bg-parchment-200/60 animate-pulse" />
       ) : (
         <>
-          <div className="mt-3 grid grid-cols-7 gap-1 text-[10px] font-semibold text-taupe-500 uppercase tracking-wide">
+          <div className="mt-3 grid grid-cols-7 gap-1 text-[10px] font-semibold text-copper-500 uppercase tracking-wide">
             {weekdays.map((d) => (
               <div key={d} className="text-center py-1">
                 {d}
@@ -119,7 +119,7 @@ export default function AvailabilityMonthPreview() {
                   const iso = `${cursor.y}-${String(cursor.m + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`
                   const slot = slotMap.get(iso)
                   const tone = !slot
-                    ? 'bg-cream-100 text-taupe-400 border-taupe-100'
+                    ? 'bg-parchment-200 text-copper-400 border-parchment-200'
                     : slot.is_booked
                       ? 'bg-amber-50 text-amber-900 border-amber-200'
                       : 'bg-emerald-50 text-emerald-900 border-emerald-200'

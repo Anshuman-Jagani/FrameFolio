@@ -1,6 +1,6 @@
 import uuid
 from typing import Optional
-from fastapi import APIRouter, Query
+from fastapi import APIRouter, Query, BackgroundTasks
 
 from app.api.deps import DBSession, CurrentUser, CurrentClient
 from app.models.booking import BookingStatus
@@ -21,10 +21,10 @@ router = APIRouter()
 
 @router.post("", response_model=BookingRead, status_code=201, summary="Create a booking")
 async def create_booking(
-    data: BookingCreate, db: DBSession, current_user: CurrentClient
+    data: BookingCreate, db: DBSession, current_user: CurrentClient, background_tasks: BackgroundTasks
 ):
     """Clients create booking requests for a photographer."""
-    service = BookingService(db)
+    service = BookingService(db, background_tasks)
     return await service.create_booking(current_user, data)
 
 
@@ -70,9 +70,10 @@ async def update_booking_status(
     data: BookingStatusUpdate,
     db: DBSession,
     current_user: CurrentUser,
+    background_tasks: BackgroundTasks
 ):
     """State-machine: pending → confirmed → in_progress → completed. Cancellation allowed by each party."""
-    service = BookingService(db)
+    service = BookingService(db, background_tasks)
     booking = await service.get_or_404(booking_id)
     updated = await service.update_status(booking, current_user, data)
     return await service.booking_to_read(updated)

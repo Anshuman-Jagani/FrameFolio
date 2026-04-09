@@ -100,15 +100,15 @@ export default function RegisterPage() {
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="grid lg:grid-cols-[1fr_420px] gap-8 items-start">
-        <section className="rounded-3xl border border-taupe-100 bg-cream-100/80 backdrop-blur p-6 sm:p-8 shadow-sm">
-          <div className="inline-flex items-center gap-2 rounded-full border border-taupe-100 bg-cream-50/80 px-3 py-1 text-sm font-medium text-taupe-700">
-            <span className="h-2 w-2 rounded-full bg-burgundy-500" />
+        <section className="rounded-3xl border border-parchment-200 bg-parchment-200/80 backdrop-blur p-6 sm:p-8 shadow-sm">
+          <div className="inline-flex items-center gap-2 rounded-full border border-parchment-200 bg-parchment-100/80 px-3 py-1 text-sm font-medium text-olive-500">
+            <span className="h-2 w-2 rounded-full bg-pine-500" />
             Create account
           </div>
           <h1 className="mt-4 text-3xl sm:text-4xl font-serif font-semibold tracking-tight text-charcoal-700">
             Sign up for FrameFolio
           </h1>
-          <p className="mt-3 text-taupe-700">
+          <p className="mt-3 text-olive-500">
             {role === 'photographer'
               ? 'Create your account, then complete your profile for admin verification.'
               : 'Book shoots, message photographers, and manage everything from one dashboard.'}
@@ -118,7 +118,7 @@ export default function RegisterPage() {
             <div className="grid gap-4">
               <div>
                 <label
-                  className="text-sm font-medium text-taupe-700"
+                  className="text-sm font-medium text-olive-500"
                   htmlFor="fullName"
                 >
                   Full name
@@ -128,25 +128,25 @@ export default function RegisterPage() {
                   type="text"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="mt-2 w-full rounded-2xl border border-taupe-100 bg-cream-50 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-burgundy-500/30 text-charcoal-700 placeholder:text-taupe-500"
+                  className="mt-2 w-full rounded-2xl border border-parchment-200 bg-parchment-100 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-pine-500/30 text-charcoal-700 placeholder:text-copper-500"
                   placeholder="e.g., Anshuman Jagani"
                 />
               </div>
               <div>
-                <label className="text-sm font-medium text-taupe-700" htmlFor="phone">
-                  Phone <span className="text-taupe-500 font-normal">(optional)</span>
+                <label className="text-sm font-medium text-olive-500" htmlFor="phone">
+                  Phone <span className="text-copper-500 font-normal">(optional)</span>
                 </label>
                 <input
                   id="phone"
                   type="tel"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="mt-2 w-full rounded-2xl border border-taupe-100 bg-cream-50 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-burgundy-500/30 text-charcoal-700 placeholder:text-taupe-500"
+                  className="mt-2 w-full rounded-2xl border border-parchment-200 bg-parchment-100 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-pine-500/30 text-charcoal-700 placeholder:text-copper-500"
                   placeholder="+971 …"
                 />
               </div>
               <div>
-                <label className="text-sm font-medium text-taupe-700" htmlFor="email">
+                <label className="text-sm font-medium text-olive-500" htmlFor="email">
                   Email
                 </label>
                 <input
@@ -154,14 +154,14 @@ export default function RegisterPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="mt-2 w-full rounded-2xl border border-taupe-100 bg-cream-50 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-burgundy-500/30 text-charcoal-700 placeholder:text-taupe-500"
+                  className="mt-2 w-full rounded-2xl border border-parchment-200 bg-parchment-100 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-pine-500/30 text-charcoal-700 placeholder:text-copper-500"
                   placeholder="you@example.com"
                 />
               </div>
 
               <div>
                 <label
-                  className="text-sm font-medium text-taupe-700"
+                  className="text-sm font-medium text-olive-500"
                   htmlFor="password"
                 >
                   Password
@@ -171,25 +171,25 @@ export default function RegisterPage() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="mt-2 w-full rounded-2xl border border-taupe-100 bg-cream-50 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-burgundy-500/30 text-charcoal-700 placeholder:text-taupe-500"
+                  className="mt-2 w-full rounded-2xl border border-parchment-200 bg-parchment-100 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-pine-500/30 text-charcoal-700 placeholder:text-copper-500"
                   placeholder="••••••••"
                 />
               </div>
 
               <div>
-                <label className="text-sm font-medium text-taupe-700" htmlFor="role">
+                <label className="text-sm font-medium text-olive-500" htmlFor="role">
                   Role
                 </label>
                 <select
                   id="role"
                   value={role}
                   onChange={(e) => setRole(e.target.value as SignupRole)}
-                  className="mt-2 w-full rounded-2xl border border-taupe-100 bg-cream-50 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-burgundy-500/30 text-charcoal-700"
+                  className="mt-2 w-full rounded-2xl border border-parchment-200 bg-parchment-100 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-pine-500/30 text-charcoal-700"
                 >
                   <option value="client">Client — book &amp; message photographers</option>
                   <option value="photographer">Photographer — list services &amp; accept bookings</option>
                 </select>
-                <p className="mt-2 text-sm text-taupe-500 italic">
+                <p className="mt-2 text-sm text-copper-500 italic">
                   Admin accounts are provisioned separately — not available via public signup.
                 </p>
               </div>
@@ -204,30 +204,30 @@ export default function RegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="mt-6 w-full rounded-2xl bg-burgundy-500 text-cream-50 px-5 py-3 text-sm font-medium hover:bg-burgundy-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="mt-6 w-full rounded-2xl bg-pine-500 text-parchment-50 px-5 py-3 text-sm font-medium hover:bg-pine-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Creating...' : 'Create account'}
             </button>
           </form>
 
-          <div className="mt-6 text-sm text-taupe-700">
+          <div className="mt-6 text-sm text-olive-500">
             Already have an account?{' '}
-            <Link className="font-medium text-burgundy-500 hover:underline" to="/login">
+            <Link className="font-medium text-pine-500 hover:underline" to="/login">
               Login
             </Link>
           </div>
         </section>
 
-        <aside className="rounded-3xl border border-taupe-100 bg-cream-50 p-6 sm:p-8 shadow-sm">
+        <aside className="rounded-3xl border border-parchment-200 bg-parchment-100 p-6 sm:p-8 shadow-sm">
           <div className="text-lg font-serif font-semibold text-charcoal-700">What you get</div>
-          <div className="mt-4 space-y-3 text-sm text-taupe-700">
-            <div className={`rounded-2xl border p-4 transition-all duration-200 ${role === 'client' ? 'border-burgundy-400 bg-burgundy-50' : 'border-taupe-100 bg-cream-100/60 opacity-50'}`}>
+          <div className="mt-4 space-y-3 text-sm text-olive-500">
+            <div className={`rounded-2xl border p-4 transition-all duration-200 ${role === 'client' ? 'border-pine-400 bg-pine-50' : 'border-parchment-200 bg-parchment-200/60 opacity-50'}`}>
               Client dashboard: bookings + messaging UI.
             </div>
-            <div className={`rounded-2xl border p-4 transition-all duration-200 ${role === 'photographer' ? 'border-burgundy-400 bg-burgundy-50' : 'border-taupe-100 bg-cream-100/60 opacity-50'}`}>
+            <div className={`rounded-2xl border p-4 transition-all duration-200 ${role === 'photographer' ? 'border-pine-400 bg-pine-50' : 'border-parchment-200 bg-parchment-200/60 opacity-50'}`}>
               Photographer dashboard: accept/reject booking requests.
             </div>
-            <div className="rounded-2xl border border-taupe-100 bg-cream-100/60 p-4 opacity-50">
+            <div className="rounded-2xl border border-parchment-200 bg-parchment-200/60 p-4 opacity-50">
               Admin dashboard: approve photographers and view bookings.
             </div>
           </div>

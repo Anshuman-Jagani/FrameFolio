@@ -55,7 +55,10 @@ async def get_availability(
         default=None,
         description="End date (YYYY-MM-DD); defaults to 90 days after from_date",
     ),
-    is_booked: bool = Query(False, description="Filter by booked status (defaults to False for available dates)"),
+    is_booked: Optional[bool] = Query(
+        default=None,
+        description="Filter by booked status; omit to return both open and booked days",
+    ),
 ):
     today = datetime.now(timezone.utc).date()
     start = from_date or today

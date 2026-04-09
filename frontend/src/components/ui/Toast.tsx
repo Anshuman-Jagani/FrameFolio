@@ -53,9 +53,9 @@ function ToastItem({ toast: t, onDismiss }: { toast: Toast; onDismiss: (id: stri
       ? 'border-emerald-200 bg-emerald-50 text-emerald-800'
       : t.type === 'error'
         ? 'border-rose-200 bg-rose-50 text-rose-800'
-        : 'border-taupe-100 bg-cream-50 text-charcoal-700'
+        : 'border-parchment-200 bg-parchment-100 text-charcoal-700'
   const iconColor =
-    t.type === 'success' ? 'text-emerald-600' : t.type === 'error' ? 'text-rose-600' : 'text-burgundy-500'
+    t.type === 'success' ? 'text-emerald-600' : t.type === 'error' ? 'text-rose-600' : 'text-pine-500'
 
   return (
     <div

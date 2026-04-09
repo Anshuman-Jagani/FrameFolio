@@ -45,11 +45,10 @@ export default function LoginPage() {
               accessToken: tokens.access_token,
               refreshToken: tokens.refresh_token,
             })
-            const me = await get<{ id: string; email: string; role: UserRole; full_name?: string }>(
-              '/auth/me',
-            )
-            const newFullName = me.full_name || me.email.split('@')[0]
-            localStorage.setItem('framefolio_fullname', newFullName)
+              const me = await get<{ id: string; email: string; role: UserRole; full_name?: string }>(
+                '/auth/me',
+              )
+              const newFullName = me.full_name || me.email.split('@')[0]
             login(
               { id: me.id, email: me.email, role: me.role, fullName: newFullName },
               {
@@ -72,9 +71,9 @@ export default function LoginPage() {
       <button
         type="button"
         onClick={() => googleLogin()}
-        className="mt-6 w-full rounded-2xl border border-taupe-100 text-charcoal-700 px-4 py-3 text-sm font-medium hover:bg-cream-200 transition-colors flex items-center justify-center gap-2"
+        className="mt-6 w-full rounded-2xl border border-parchment-200 text-charcoal-700 px-4 py-3 text-sm font-medium hover:bg-parchment-200 transition-colors flex items-center justify-center gap-2"
       >
-        <span className="inline-block h-2.5 w-2.5 rounded-full bg-burgundy-500" />
+        <span className="inline-block h-2.5 w-2.5 rounded-full bg-pine-500" />
         Continue with Google
       </button>
     )
@@ -101,12 +100,11 @@ export default function LoginPage() {
         refreshToken: tokens.refresh_token,
       })
 
-      const me = await get<{ id: string; email: string; role: UserRole; full_name?: string }>(
-        '/auth/me',
-      )
-      
-      const newFullName = me.full_name || email.split('@')[0]
-      localStorage.setItem('framefolio_fullname', newFullName)
+        const me = await get<{ id: string; email: string; role: UserRole; full_name?: string }>(
+          '/auth/me',
+        )
+        
+        const newFullName = me.full_name || email.split('@')[0]
       login(
         { id: me.id, email: me.email, role: me.role, fullName: newFullName },
         {
@@ -123,22 +121,22 @@ export default function LoginPage() {
   return (
     <div className={`max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 ${!googleClientId ? 'max-w-md' : ''}`}>
       <div className={`grid gap-8 ${googleClientId ? 'lg:grid-cols-[1fr_420px]' : ''} items-start`}>
-        <section className="rounded-3xl border border-taupe-100 bg-cream-100/80 backdrop-blur p-6 sm:p-8 shadow-sm">
-          <div className="inline-flex items-center gap-2 rounded-full border border-taupe-100 bg-cream-50/80 px-3 py-1 text-sm font-medium text-taupe-700">
-            <span className="h-2 w-2 rounded-full bg-burgundy-500" />
+        <section className="rounded-3xl border border-parchment-200 bg-parchment-200/80 backdrop-blur p-6 sm:p-8 shadow-sm">
+          <div className="inline-flex items-center gap-2 rounded-full border border-parchment-200 bg-parchment-100/80 px-3 py-1 text-sm font-medium text-olive-500">
+            <span className="h-2 w-2 rounded-full bg-pine-500" />
             Welcome back
           </div>
           <h1 className="mt-4 text-3xl sm:text-4xl font-serif font-semibold tracking-tight text-charcoal-700">
             Login to FrameFolio
           </h1>
-          <p className="mt-3 text-taupe-700">
+          <p className="mt-3 text-olive-500">
             Sign in to manage your bookings and connect with photographers.
           </p>
 
           <form className="mt-8" onSubmit={onSubmit}>
             <div className="grid gap-4">
               <div>
-                <label className="text-sm font-medium text-taupe-700" htmlFor="email">
+                <label className="text-sm font-medium text-olive-500" htmlFor="email">
                   Email
                 </label>
                 <input
@@ -146,13 +144,13 @@ export default function LoginPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="mt-2 w-full rounded-2xl border border-taupe-100 bg-cream-50 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-burgundy-500/30 text-charcoal-700 placeholder:text-taupe-500"
+                  className="mt-2 w-full rounded-2xl border border-parchment-200 bg-parchment-100 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-pine-500/30 text-charcoal-700 placeholder:text-copper-500"
                   placeholder="you@example.com"
                 />
               </div>
               <div>
                 <label
-                  className="text-sm font-medium text-taupe-700"
+                  className="text-sm font-medium text-olive-500"
                   htmlFor="password"
                 >
                   Password
@@ -162,7 +160,7 @@ export default function LoginPage() {
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="mt-2 w-full rounded-2xl border border-taupe-100 bg-cream-50 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-burgundy-500/30 text-charcoal-700 placeholder:text-taupe-500"
+                  className="mt-2 w-full rounded-2xl border border-parchment-200 bg-parchment-100 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-pine-500/30 text-charcoal-700 placeholder:text-copper-500"
                   placeholder="••••••••"
                 />
               </div>
@@ -177,7 +175,7 @@ export default function LoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="mt-6 w-full rounded-2xl bg-burgundy-500 text-cream-50 px-5 py-3 text-sm font-medium hover:bg-burgundy-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="mt-6 w-full rounded-2xl bg-pine-500 text-parchment-50 px-5 py-3 text-sm font-medium hover:bg-pine-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? 'Signing in...' : 'Login'}
             </button>
@@ -185,21 +183,21 @@ export default function LoginPage() {
             {googleClientId && <GoogleLoginButton />}
           </form>
 
-          <div className="mt-6 text-sm text-taupe-700">
+          <div className="mt-6 text-sm text-olive-500">
             New here?{' '}
-            <Link className="font-medium text-burgundy-500 hover:underline" to="/register">
+            <Link className="font-medium text-pine-500 hover:underline" to="/register">
               Create an account
             </Link>
           </div>
         </section>
 
         {googleClientId ? (
-          <aside className="rounded-3xl border border-taupe-100 bg-cream-50 p-6 sm:p-8 shadow-sm">
+          <aside className="rounded-3xl border border-parchment-200 bg-parchment-100 p-6 sm:p-8 shadow-sm">
             <div className="text-lg font-serif font-semibold text-charcoal-700">Google Sign-In</div>
-            <p className="mt-2 text-sm text-taupe-700">
+            <p className="mt-2 text-sm text-olive-500">
               If configured, sign in and we'll save your JWT for protected routes.
             </p>
-            <div className="mt-6 text-xs text-taupe-500">
+            <div className="mt-6 text-xs text-copper-500">
               Connects to your backend `/api/v1/auth/*` endpoints.
             </div>
           </aside>

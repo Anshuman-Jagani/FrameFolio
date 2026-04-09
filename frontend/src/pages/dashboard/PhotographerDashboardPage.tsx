@@ -172,9 +172,9 @@ export default function PhotographerDashboardPage() {
   const StatCard = ({ label, value, icon: Icon }: { 
     label: string, value: number | string, icon: typeof LayoutList
   }) => (
-    <div className="rounded-2xl border border-taupe-100 bg-cream-50 px-5 py-4 relative">
-      <Icon className="absolute top-4 right-4 w-5 h-5 text-taupe-400" />
-      <div className="text-xs font-semibold uppercase tracking-wide text-taupe-600">{label}</div>
+    <div className="rounded-2xl border border-parchment-200 bg-parchment-100 px-5 py-4 relative">
+      <Icon className="absolute top-4 right-4 w-5 h-5 text-copper-400" />
+      <div className="text-xs font-semibold uppercase tracking-wide text-copper-600">{label}</div>
       <div className="text-2xl font-serif font-semibold text-charcoal-700 mt-1">{value}</div>
     </div>
   )
@@ -184,7 +184,7 @@ export default function PhotographerDashboardPage() {
       <div className="lg:grid lg:grid-cols-[260px_1fr] lg:gap-8 items-start">
         {/* Sidebar */}
         <aside className="hidden lg:block sticky top-20">
-          <nav className="rounded-3xl border-r border-taupe-100 bg-cream-100/60 p-3 shadow-sm">
+          <nav className="rounded-3xl border-r border-parchment-200 bg-parchment-200/60 p-3 shadow-sm">
             <div className="flex flex-col gap-1">
               {[
                 { key: 'overview', label: 'Overview', icon: LayoutList },
@@ -203,8 +203,8 @@ export default function PhotographerDashboardPage() {
                     onClick={() => setTab(item.key as PhotographerTab)}
                     className={`w-full text-left rounded-xl px-4 py-3 text-sm font-semibold transition-all flex items-center gap-3 ${
                       isActive 
-                        ? 'bg-burgundy-500 text-white' 
-                        : 'text-taupe-700 hover:bg-cream-200'
+                        ? 'bg-pine-500 text-white' 
+                        : 'text-olive-500 hover:bg-parchment-200'
                     }`}
                   >
                     <Icon className="w-5 h-5" />
@@ -213,13 +213,13 @@ export default function PhotographerDashboardPage() {
                 )
               })}
 
-              <div className="my-3 border-t border-taupe-100" />
+              <div className="my-3 border-t border-parchment-200" />
 
               <div className="pt-3">
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="w-full text-left rounded-xl px-4 py-3 text-sm font-semibold transition-all flex items-center gap-3 text-taupe-600 hover:bg-cream-200"
+                  className="w-full text-left rounded-xl px-4 py-3 text-sm font-semibold transition-all flex items-center gap-3 text-copper-600 hover:bg-parchment-200"
                 >
                   <LogOut className="w-5 h-5" />
                   Logout
@@ -249,8 +249,8 @@ export default function PhotographerDashboardPage() {
                   onClick={() => setTab(item.key as PhotographerTab)}
                   className={`whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold transition-all flex items-center gap-2 ${
                     isActive 
-                      ? 'bg-burgundy-500 text-white' 
-                      : 'bg-cream-100 text-taupe-700'
+                      ? 'bg-pine-500 text-white' 
+                      : 'bg-parchment-200 text-olive-500'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -265,7 +265,7 @@ export default function PhotographerDashboardPage() {
             <h1 className="text-3xl sm:text-4xl font-serif font-semibold text-charcoal-700">
               {getGreeting()}, {user?.fullName || user?.email?.split('@')[0] || 'there'}!
             </h1>
-            <p className="mt-2 text-taupe-700">
+            <p className="mt-2 text-olive-500">
               Manage your bookings, availability, and earnings from your dashboard.
             </p>
           </div>
@@ -301,42 +301,42 @@ export default function PhotographerDashboardPage() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div 
                   onClick={() => setTab('availability')}
-                  className="cursor-pointer rounded-2xl border border-taupe-200 bg-cream-50 p-6 hover:bg-cream-100 transition-colors group"
+                  className="cursor-pointer rounded-2xl border border-parchment-200 bg-parchment-100 p-6 hover:bg-parchment-200 transition-colors group"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-taupe-200 text-taupe-700 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-2xl bg-copper-200 text-olive-500 flex items-center justify-center">
                       <Calendar className="w-6 h-6" />
                     </div>
                     <div>
                       <div className="font-semibold text-charcoal-700">Update Availability</div>
-                      <div className="text-sm text-taupe-600">Set your available dates</div>
+                      <div className="text-sm text-copper-600">Set your available dates</div>
                     </div>
                   </div>
                 </div>
 
                 <div 
                   onClick={() => setTab('messages')}
-                  className="cursor-pointer rounded-2xl border border-taupe-200 bg-cream-50 p-6 hover:bg-cream-100 transition-colors group"
+                  className="cursor-pointer rounded-2xl border border-parchment-200 bg-parchment-100 p-6 hover:bg-parchment-200 transition-colors group"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-taupe-200 text-taupe-700 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-2xl bg-copper-200 text-olive-500 flex items-center justify-center">
                       <MessageCircle className="w-6 h-6" />
                     </div>
                     <div>
                       <div className="font-semibold text-charcoal-700">View Messages</div>
-                      <div className="text-sm text-taupe-600">{chats.length} conversation{chats.length !== 1 ? 's' : ''}</div>
+                      <div className="text-sm text-copper-600">{chats.length} conversation{chats.length !== 1 ? 's' : ''}</div>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Upcoming Shoots */}
-              <div className="rounded-2xl border border-taupe-100 bg-cream-50 p-6">
+              <div className="rounded-2xl border border-parchment-200 bg-parchment-100 p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-lg font-serif font-semibold text-charcoal-700">Upcoming Shoots</h2>
                   <button 
                     onClick={() => setTab('bookings')}
-                    className="text-sm text-burgundy-500 font-medium hover:underline"
+                    className="text-sm text-pine-500 font-medium hover:underline"
                   >
                     View all
                   </button>
@@ -344,21 +344,21 @@ export default function PhotographerDashboardPage() {
                 
                 {upcomingBookings.length === 0 ? (
                   <div className="text-center py-8">
-                    <CalendarCheck className="w-12 h-12 text-taupe-300 mx-auto mb-3" />
+                    <CalendarCheck className="w-12 h-12 text-copper-300 mx-auto mb-3" />
                     <div className="font-medium text-charcoal-700">No upcoming shoots</div>
-                    <div className="text-sm text-taupe-500 mt-1">When clients book you, they'll appear here</div>
+                    <div className="text-sm text-copper-500 mt-1">When clients book you, they'll appear here</div>
                   </div>
                 ) : (
                   <div className="space-y-3">
                     {upcomingBookings.map((b) => (
-                      <div key={b.id} className="flex items-center justify-between p-4 rounded-xl bg-cream-100/60 border border-taupe-100">
+                      <div key={b.id} className="flex items-center justify-between p-4 rounded-xl bg-parchment-200/60 border border-parchment-200">
                         <div className="flex items-center gap-4">
-                          <div className="w-12 h-12 rounded-xl bg-burgundy-100 text-burgundy-700 flex items-center justify-center font-semibold">
+                          <div className="w-12 h-12 rounded-xl bg-pine-100 text-pine-700 flex items-center justify-center font-semibold">
                             {(b.clientName || 'Client').split(' ').map(n => n[0]).join('').slice(0,2)}
                           </div>
                           <div>
                             <div className="font-semibold text-charcoal-700">{b.clientName || 'Client'}</div>
-                            <div className="text-sm text-taupe-600">{b.date}</div>
+                            <div className="text-sm text-copper-600">{b.date}</div>
                           </div>
                         </div>
                         <span className="font-semibold text-charcoal-700">{formatAed(b.price)}</span>
@@ -388,8 +388,8 @@ export default function PhotographerDashboardPage() {
                     onClick={() => setFilter(item.key as DashboardBookingFilter)}
                     className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
                       filter === item.key
-                        ? 'bg-burgundy-500 text-white'
-                        : 'bg-cream-100 text-taupe-700 hover:bg-cream-200'
+                        ? 'bg-pine-500 text-white'
+                        : 'bg-parchment-200 text-olive-500 hover:bg-parchment-200'
                     }`}
                   >
                     {item.label} ({item.count})
@@ -405,12 +405,12 @@ export default function PhotographerDashboardPage() {
                     <BookingRowSkeleton />
                   </>
                 ) : visibleBookings.length === 0 ? (
-                  <div className="rounded-2xl border border-taupe-100 bg-cream-50 p-8 text-center">
-                    <CalendarCheck className="w-12 h-12 text-taupe-300 mx-auto mb-3" />
+                  <div className="rounded-2xl border border-parchment-200 bg-parchment-100 p-8 text-center">
+                    <CalendarCheck className="w-12 h-12 text-copper-300 mx-auto mb-3" />
                     <div className="font-medium text-charcoal-700">
                       {bookings.length === 0 ? 'No bookings yet' : 'No bookings match this filter'}
                     </div>
-                    <div className="text-sm text-taupe-500 mt-1">
+                    <div className="text-sm text-copper-500 mt-1">
                       {bookings.length === 0 
                         ? 'When clients book you, their requests will appear here'
                         : 'Try a different filter or view all bookings'}
@@ -418,7 +418,7 @@ export default function PhotographerDashboardPage() {
                     {bookings.length > 0 && filter !== 'all' && (
                       <button
                         onClick={() => setFilter('all')}
-                        className="mt-4 rounded-xl border border-taupe-200 text-charcoal-700 px-5 py-2.5 text-sm font-medium hover:bg-cream-200"
+                        className="mt-4 rounded-xl border border-parchment-200 text-charcoal-700 px-5 py-2.5 text-sm font-medium hover:bg-parchment-200"
                       >
                         Show all bookings
                       </button>
@@ -469,16 +469,16 @@ export default function PhotographerDashboardPage() {
           {/* Availability Tab */}
           {tab === 'availability' && (
             <div className="space-y-6">
-              <div className="rounded-2xl border border-taupe-100 bg-cream-50 p-6">
+              <div className="rounded-2xl border border-parchment-200 bg-parchment-100 p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h2 className="text-lg font-serif font-semibold text-charcoal-700">Availability</h2>
-                    <p className="text-sm text-taupe-500 mt-1">Set your working dates and schedule</p>
+                    <p className="text-sm text-copper-500 mt-1">Set your working dates and schedule</p>
                   </div>
                   <select
                     value={availability}
                     onChange={(e) => void onAvailabilityChange(e.target.value as PhotographerAvailability)}
-                    className="rounded-xl border border-taupe-100 bg-cream-50 px-4 py-2 text-sm text-charcoal-700"
+                    className="rounded-xl border border-parchment-200 bg-parchment-100 px-4 py-2 text-sm text-charcoal-700"
                   >
                     {availabilityOptions.map((o) => (
                       <option key={o} value={o}>{o}</option>
@@ -493,18 +493,18 @@ export default function PhotographerDashboardPage() {
           {/* Earnings Tab */}
           {tab === 'earnings' && (
             <div className="space-y-6">
-              <div className="rounded-2xl border border-taupe-100 bg-cream-50 p-6">
+              <div className="rounded-2xl border border-parchment-200 bg-parchment-100 p-6">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h2 className="text-lg font-serif font-semibold text-charcoal-700">Earnings</h2>
-                    <p className="text-sm text-taupe-500 mt-1">
+                    <p className="text-sm text-copper-500 mt-1">
                       Platform fee: <strong>{PLATFORM_COMMISSION_PCT}%</strong>
                     </p>
                   </div>
                   <button
                     type="button"
                     onClick={() => exportCsv()}
-                    className="rounded-xl border border-taupe-200 bg-cream-50 px-4 py-2 text-sm font-medium text-charcoal-700 hover:bg-cream-100 flex items-center gap-2"
+                    className="rounded-xl border border-parchment-200 bg-parchment-100 px-4 py-2 text-sm font-medium text-charcoal-700 hover:bg-parchment-200 flex items-center gap-2"
                   >
                     <TrendingUp className="w-4 h-4" />
                     Export CSV
@@ -512,31 +512,31 @@ export default function PhotographerDashboardPage() {
                 </div>
 
                 <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 mb-6">
-                  <div className="rounded-2xl border border-taupe-100 bg-cream-50 px-4 py-3 relative">
+                  <div className="rounded-2xl border border-parchment-200 bg-parchment-100 px-4 py-3 relative">
                     <TrendingUp className="absolute top-3 right-3 w-4 h-4 text-emerald-500" />
-                    <div className="text-xs font-semibold uppercase text-taupe-600">Total Earned</div>
+                    <div className="text-xs font-semibold uppercase text-copper-600">Total Earned</div>
                     <div className="text-lg font-semibold text-charcoal-700">{formatAed(totalGross)}</div>
                   </div>
-                  <div className="rounded-2xl border border-taupe-100 bg-cream-50 px-4 py-3 relative">
+                  <div className="rounded-2xl border border-parchment-200 bg-parchment-100 px-4 py-3 relative">
                     <Clock className="absolute top-3 right-3 w-4 h-4 text-amber-400" />
-                    <div className="text-xs font-semibold uppercase text-taupe-600">Pending Payout</div>
+                    <div className="text-xs font-semibold uppercase text-copper-600">Pending Payout</div>
                     <div className="text-lg font-semibold text-charcoal-700">{formatAed(pendingNet)}</div>
                   </div>
-                  <div className="rounded-2xl border border-taupe-100 bg-cream-50 px-4 py-3 relative">
+                  <div className="rounded-2xl border border-parchment-200 bg-parchment-100 px-4 py-3 relative">
                     <Percent className="absolute top-3 right-3 w-4 h-4 text-rose-400" />
-                    <div className="text-xs font-semibold uppercase text-taupe-600">Commission</div>
+                    <div className="text-xs font-semibold uppercase text-copper-600">Commission</div>
                     <div className="text-lg font-semibold text-charcoal-700">{formatAed(totalCommission)}</div>
                   </div>
-                  <div className="rounded-2xl border border-taupe-100 bg-cream-50 px-4 py-3 relative">
+                  <div className="rounded-2xl border border-parchment-200 bg-parchment-100 px-4 py-3 relative">
                     <Wallet className="absolute top-3 right-3 w-4 h-4 text-blue-400" />
-                    <div className="text-xs font-semibold uppercase text-taupe-600">Net Received</div>
+                    <div className="text-xs font-semibold uppercase text-copper-600">Net Received</div>
                     <div className="text-lg font-semibold text-charcoal-700">{formatAed(releasedNet)}</div>
                   </div>
                 </div>
 
-                <div className="overflow-x-auto rounded-2xl border border-taupe-100">
+                <div className="overflow-x-auto rounded-2xl border border-parchment-200">
                   <table className="min-w-full text-sm w-full">
-                    <thead className="bg-cream-200/60 text-left text-taupe-700">
+                    <thead className="bg-parchment-200/60 text-left text-olive-500">
                       <tr>
                         <th className="px-3 py-2 font-semibold">Booking</th>
                         <th className="px-3 py-2 font-semibold">Client</th>
@@ -550,14 +550,14 @@ export default function PhotographerDashboardPage() {
                     <tbody>
                       {earningsRows.length === 0 ? (
                         <tr>
-                          <td colSpan={7} className="px-3 py-6 text-center text-taupe-600">
+                          <td colSpan={7} className="px-3 py-6 text-center text-copper-600">
                             Bookings will populate this table automatically.
                           </td>
                         </tr>
                       ) : (
                         earningsRows.map((r) => (
-                          <tr key={r.bookingId} className="border-t border-taupe-100 bg-cream-50">
-                            <td className="px-3 py-2 font-mono text-xs text-taupe-600">
+                          <tr key={r.bookingId} className="border-t border-parchment-200 bg-parchment-100">
+                            <td className="px-3 py-2 font-mono text-xs text-copper-600">
                               {r.bookingId.slice(0, 8)}…
                             </td>
                             <td className="px-3 py-2">{r.clientName}</td>
@@ -578,18 +578,18 @@ export default function PhotographerDashboardPage() {
 
           {/* Messages Tab */}
           {tab === 'messages' && (
-            <div className="rounded-2xl border border-taupe-100 bg-cream-50 overflow-hidden">
+            <div className="rounded-2xl border border-parchment-200 bg-parchment-100 overflow-hidden">
               <div className="grid grid-cols-1 sm:grid-cols-[240px_1fr] min-h-[500px]">
                 {/* Chat List */}
-                <div className="border-b sm:border-b-0 sm:border-r border-taupe-100">
-                  <div className="p-4 border-b border-taupe-100">
+                <div className="border-b sm:border-b-0 sm:border-r border-parchment-200">
+                  <div className="p-4 border-b border-parchment-200">
                     <h2 className="font-serif font-semibold text-charcoal-700">Messages</h2>
-                    <p className="text-sm text-taupe-500 mt-1">{chats.length} conversations</p>
+                    <p className="text-sm text-copper-500 mt-1">{chats.length} conversations</p>
                   </div>
                   <div className="max-h-[400px] overflow-auto">
                     {chats.length === 0 ? (
-                      <div className="p-4 text-center text-taupe-500 text-sm">
-                        <MessageCircle className="w-8 h-8 mx-auto mb-2 text-taupe-300" />
+                      <div className="p-4 text-center text-copper-500 text-sm">
+                        <MessageCircle className="w-8 h-8 mx-auto mb-2 text-copper-300" />
                         No messages yet
                       </div>
                     ) : (
@@ -605,8 +605,8 @@ export default function PhotographerDashboardPage() {
                               setActiveClientId(c.otherUserId)
                               void fetchConversation(c.otherUserId)
                             }}
-                            className={`w-full text-left px-4 py-3 border-b border-taupe-100/50 hover:bg-cream-100 transition-colors ${
-                              active ? 'bg-burgundy-50' : ''
+                            className={`w-full text-left px-4 py-3 border-b border-parchment-200/50 hover:bg-parchment-200 transition-colors ${
+                              active ? 'bg-pine-50' : ''
                             }`}
                           >
                             <div className="flex items-center gap-3">
@@ -614,10 +614,10 @@ export default function PhotographerDashboardPage() {
                                 <img
                                   src={meta.image}
                                   alt={name}
-                                  className="w-10 h-10 rounded-full object-cover border border-taupe-100"
+                                  className="w-10 h-10 rounded-full object-cover border border-parchment-200"
                                 />
                               ) : (
-                                <div className="w-10 h-10 rounded-full bg-burgundy-100 text-burgundy-700 flex items-center justify-center text-sm font-semibold">
+                                <div className="w-10 h-10 rounded-full bg-pine-100 text-pine-700 flex items-center justify-center text-sm font-semibold">
                                   {name.split(' ').map(n => n[0]).join('').slice(0,2)}
                                 </div>
                               )}
@@ -625,7 +625,7 @@ export default function PhotographerDashboardPage() {
                                 <div className="text-sm font-semibold truncate text-charcoal-700">
                                   {name}
                                 </div>
-                                <div className="text-xs text-taupe-500 truncate">
+                                <div className="text-xs text-copper-500 truncate">
                                   {c.lastMessage || 'No messages yet'}
                                 </div>
                               </div>
@@ -641,16 +641,16 @@ export default function PhotographerDashboardPage() {
                 <div className="flex flex-col">
                   {activeClientId ? (
                     <>
-                      <div className="p-4 border-b border-taupe-100 bg-cream-100/50">
+                      <div className="p-4 border-b border-parchment-200 bg-parchment-200/50">
                         <div className="flex items-center gap-3">
                           {clientUsers[activeClientId]?.image ? (
                             <img
                               src={clientUsers[activeClientId].image}
                               alt={clientUsers[activeClientId].name}
-                              className="w-10 h-10 rounded-full object-cover border border-taupe-100"
+                              className="w-10 h-10 rounded-full object-cover border border-parchment-200"
                             />
                           ) : (
-                            <div className="w-10 h-10 rounded-full bg-burgundy-100 text-burgundy-700 flex items-center justify-center">
+                            <div className="w-10 h-10 rounded-full bg-pine-100 text-pine-700 flex items-center justify-center">
                               {(clientUsers[activeClientId]?.name || 'Client').split(' ').map(n => n[0]).join('').slice(0,2)}
                             </div>
                           )}
@@ -658,15 +658,15 @@ export default function PhotographerDashboardPage() {
                             <div className="font-semibold text-charcoal-700">
                               {clientUsers[activeClientId]?.name || clientNameById.get(activeClientId) || 'Client'}
                             </div>
-                            <div className="text-xs text-taupe-500">Direct messages</div>
+                            <div className="text-xs text-copper-500">Direct messages</div>
                           </div>
                         </div>
                       </div>
 
                       <div className="flex-1 p-4 overflow-auto space-y-3">
                         {conversation.length === 0 ? (
-                          <div className="text-center text-taupe-500 py-8">
-                            <MessageCircle className="w-10 h-10 mx-auto mb-2 text-taupe-300" />
+                          <div className="text-center text-copper-500 py-8">
+                            <MessageCircle className="w-10 h-10 mx-auto mb-2 text-copper-300" />
                             Say hi to start the conversation
                           </div>
                         ) : (
@@ -680,12 +680,12 @@ export default function PhotographerDashboardPage() {
                                 <div
                                   className={`max-w-[75%] rounded-2xl px-4 py-2.5 text-sm ${
                                     mine
-                                      ? 'bg-burgundy-500 text-white'
-                                      : 'bg-cream-100 text-charcoal-700 border border-taupe-100'
+                                      ? 'bg-pine-500 text-white'
+                                      : 'bg-parchment-200 text-charcoal-700 border border-parchment-200'
                                   }`}
                                 >
                                   {m.text}
-                                  <div className={`text-[10px] mt-1 ${mine ? 'text-cream-200' : 'text-taupe-400'}`}>
+                                  <div className={`text-[10px] mt-1 ${mine ? 'text-parchment-200' : 'text-copper-400'}`}>
                                     {new Date(m.createdAt).toLocaleTimeString([], {
                                       hour: '2-digit',
                                       minute: '2-digit',
@@ -698,13 +698,13 @@ export default function PhotographerDashboardPage() {
                         )}
                       </div>
 
-                      <div className="p-4 border-t border-taupe-100">
+                      <div className="p-4 border-t border-parchment-200">
                         <div className="flex items-center gap-3">
                           <input
                             value={messageText}
                             onChange={(e) => setMessageText(e.target.value)}
                             placeholder="Type a message..."
-                            className="flex-1 rounded-xl border border-taupe-100 bg-cream-50 px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-burgundy-500/30 text-charcoal-700 placeholder:text-taupe-500"
+                            className="flex-1 rounded-xl border border-parchment-200 bg-parchment-100 px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-pine-500/30 text-charcoal-700 placeholder:text-copper-500"
                             onKeyDown={(e) => {
                               if (e.key === 'Enter' && !e.shiftKey && messageText.trim()) {
                                 void sendMessage(activeClientId, messageText.trim()).then(() =>
@@ -715,7 +715,7 @@ export default function PhotographerDashboardPage() {
                           />
                           <button
                             type="button"
-                            className="rounded-xl bg-burgundy-500 text-white px-5 py-2.5 text-sm font-medium hover:bg-burgundy-600 transition-colors disabled:opacity-50"
+                            className="rounded-xl bg-pine-500 text-white px-5 py-2.5 text-sm font-medium hover:bg-pine-600 transition-colors disabled:opacity-50"
                             disabled={!messageText.trim()}
                             onClick={() => {
                               void sendMessage(activeClientId, messageText.trim()).then(() =>
@@ -729,9 +729,9 @@ export default function PhotographerDashboardPage() {
                       </div>
                     </>
                   ) : (
-                    <div className="flex-1 flex items-center justify-center text-taupe-500">
+                    <div className="flex-1 flex items-center justify-center text-copper-500">
                       <div className="text-center">
-                        <MessageCircle className="w-12 h-12 mx-auto mb-3 text-taupe-300" />
+                        <MessageCircle className="w-12 h-12 mx-auto mb-3 text-copper-300" />
                         <div className="font-medium text-charcoal-700">Select a conversation</div>
                         <div className="text-sm mt-1">Choose from your existing chats</div>
                       </div>
@@ -744,10 +744,10 @@ export default function PhotographerDashboardPage() {
 
           {/* Profile Tab */}
           {tab === 'profile' && (
-            <div className="rounded-2xl border border-taupe-100 bg-cream-50 p-6">
+            <div className="rounded-2xl border border-parchment-200 bg-parchment-100 p-6">
               <div className="mb-6">
                 <h2 className="text-lg font-serif font-semibold text-charcoal-700">Profile Settings</h2>
-                <p className="text-sm text-taupe-500 mt-1">Manage your public profile and portfolio</p>
+                <p className="text-sm text-copper-500 mt-1">Manage your public profile and portfolio</p>
               </div>
               <PhotographerProfileEditor profile={myProfile} onRefresh={refreshMyProfile} />
             </div>

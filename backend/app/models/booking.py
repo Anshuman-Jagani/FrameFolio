@@ -3,7 +3,7 @@ from typing import Optional
 import uuid
 import enum
 from datetime import datetime, date, timezone
-from sqlalchemy import Float, ForeignKey, DateTime, Enum as SAEnum, Integer, Date, Text
+from sqlalchemy import Float, ForeignKey, DateTime, Enum as SAEnum, Integer, Date, Text, Numeric, CheckConstraint, Index
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base import Base
@@ -43,9 +43,9 @@ class Booking(Base):
         default=BookingStatus.requested,
         index=True,
     )
-    total_amount: Mapped[float] = mapped_column(Float, nullable=False)
-    advance_amount: Mapped[float] = mapped_column(Float, nullable=False, default=0.0)
-    remaining_amount: Mapped[float] = mapped_column(Float, nullable=False, default=0.0)
+    total_amount: Mapped[float] = mapped_column(Numeric(10, 2), nullable=False)
+    advance_amount: Mapped[float] = mapped_column(Numeric(10, 2), nullable=False, default=0.0)
+    remaining_amount: Mapped[float] = mapped_column(Numeric(10, 2), nullable=False, default=0.0)
 
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), nullable=False
@@ -61,6 +61,10 @@ class Booking(Base):
     client = relationship("User", foreign_keys=[client_id], backref="client_bookings")
     photographer = relationship("PhotographerProfile", backref="bookings")
     review = relationship("Review", back_populates="booking", uselist=False)
+
+    __table_args__ = (
+        Index("ix_booking_photographer_date", "photographer_id", "date"),
+    )
 
     def __repr__(self) -> str:
         return f"<Booking id={self.id} status={self.status}>"
@@ -99,3 +103,8 @@ class Review(Base):
     booking = relationship("Booking", back_populates="review")
     reviewer = relationship("User", foreign_keys=[reviewer_id])
     photographer = relationship("PhotographerProfile", foreign_keys=[photographer_id])
+
+    __table_args__ = (
+        CheckConstraint("rating >= 1 AND rating <= 5", name="ck_review_rating_range"),
+    )
+

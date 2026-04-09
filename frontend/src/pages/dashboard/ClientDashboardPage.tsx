@@ -149,10 +149,10 @@ export default function ClientDashboardPage() {
     <button
       type="button"
       onClick={onClick}
-      className="rounded-2xl border border-taupe-100 bg-cream-50 px-5 py-4 relative text-left hover:shadow-md transition-all w-full"
+      className="rounded-2xl border border-parchment-200 bg-parchment-100 px-5 py-4 relative text-left hover:shadow-md transition-all w-full"
     >
-      <Icon className="absolute top-4 right-4 w-5 h-5 text-taupe-400" />
-      <div className="text-xs font-semibold uppercase tracking-wide text-taupe-600">{label}</div>
+      <Icon className="absolute top-4 right-4 w-5 h-5 text-copper-400" />
+      <div className="text-xs font-semibold uppercase tracking-wide text-copper-600">{label}</div>
       <div className="text-2xl font-serif font-semibold text-charcoal-700 mt-1">{value}</div>
     </button>
   )
@@ -162,7 +162,7 @@ export default function ClientDashboardPage() {
       <div className="lg:grid lg:grid-cols-[260px_1fr] lg:gap-8 items-start">
         {/* Sidebar */}
         <aside className="hidden lg:block sticky top-20">
-          <nav className="rounded-3xl border-r border-taupe-100 bg-cream-100/60 p-3 shadow-sm">
+          <nav className="rounded-3xl border-r border-parchment-200 bg-parchment-200/60 p-3 shadow-sm">
             <div className="flex flex-col gap-1">
               {[
                 { key: 'overview', label: 'Overview', icon: LayoutList },
@@ -180,8 +180,8 @@ export default function ClientDashboardPage() {
                     onClick={() => setTab(item.key as ClientTab)}
                     className={`w-full text-left rounded-xl px-4 py-3 text-sm font-semibold transition-all flex items-center gap-3 ${
                       isActive 
-                        ? 'bg-burgundy-500 text-white' 
-                        : 'text-taupe-700 hover:bg-cream-200'
+                        ? 'bg-pine-500 text-white' 
+                        : 'text-olive-500 hover:bg-parchment-200'
                     }`}
                   >
                     <Icon className="w-5 h-5" />
@@ -190,12 +190,12 @@ export default function ClientDashboardPage() {
                 )
               })}
               
-              <div className="my-3 border-t border-taupe-100" />
+              <div className="my-3 border-t border-parchment-200" />
               
               <button
                 type="button"
                 onClick={() => setTab('browse')}
-                className="w-full text-left rounded-xl bg-burgundy-500 text-white px-4 py-3 text-sm font-semibold transition-all flex items-center gap-3 hover:bg-burgundy-600"
+                className="w-full text-left rounded-xl bg-pine-500 text-white px-4 py-3 text-sm font-semibold transition-all flex items-center gap-3 hover:bg-pine-600"
               >
                 <Plus className="w-5 h-5" />
                 New Booking
@@ -223,8 +223,8 @@ export default function ClientDashboardPage() {
                   onClick={() => setTab(item.key as ClientTab)}
                   className={`whitespace-nowrap rounded-full px-4 py-2.5 text-sm font-semibold transition-all flex items-center gap-2 ${
                     isActive 
-                      ? 'bg-burgundy-500 text-white' 
-                      : 'bg-cream-100 text-taupe-700'
+                      ? 'bg-pine-500 text-white' 
+                      : 'bg-parchment-200 text-olive-500'
                   }`}
                 >
                   <Icon className="w-4 h-4" />
@@ -239,7 +239,7 @@ export default function ClientDashboardPage() {
             <h1 className="text-3xl sm:text-4xl font-serif font-semibold text-charcoal-700">
               {getGreeting()}, {user?.fullName || user?.email?.split('@')[0] || 'there'}!
             </h1>
-            <p className="mt-2 text-taupe-700">
+            <p className="mt-2 text-olive-500">
               Manage your bookings and find the perfect photographer for your next shoot.
             </p>
           </div>
@@ -279,42 +279,42 @@ export default function ClientDashboardPage() {
               <div className="grid md:grid-cols-2 gap-4">
                 <div 
                   onClick={() => setTab('browse')}
-                  className="cursor-pointer rounded-2xl border border-taupe-200 bg-cream-50 p-6 hover:bg-cream-100 transition-colors group"
+                  className="cursor-pointer rounded-2xl border border-parchment-200 bg-parchment-100 p-6 hover:bg-parchment-200 transition-colors group"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-taupe-200 text-taupe-700 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-2xl bg-copper-200 text-olive-500 flex items-center justify-center">
                       <Plus className="w-6 h-6" />
                     </div>
                     <div>
                       <div className="font-semibold text-charcoal-700">Book a Photographer</div>
-                      <div className="text-sm text-taupe-600">Find and book your perfect shoot</div>
+                      <div className="text-sm text-copper-600">Find and book your perfect shoot</div>
                     </div>
                   </div>
                 </div>
 
                 <div 
                   onClick={() => setTab('messages')}
-                  className="cursor-pointer rounded-2xl border border-taupe-200 bg-cream-50 p-6 hover:bg-cream-100 transition-colors group"
+                  className="cursor-pointer rounded-2xl border border-parchment-200 bg-parchment-100 p-6 hover:bg-parchment-200 transition-colors group"
                 >
                   <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-2xl bg-taupe-200 text-taupe-700 flex items-center justify-center">
+                    <div className="w-12 h-12 rounded-2xl bg-copper-200 text-olive-500 flex items-center justify-center">
                       <MessageCircle className="w-6 h-6" />
                     </div>
                     <div>
                       <div className="font-semibold text-charcoal-700">View Messages</div>
-                      <div className="text-sm text-taupe-600">{chats.length} conversation{chats.length !== 1 ? 's' : ''}</div>
+                      <div className="text-sm text-copper-600">{chats.length} conversation{chats.length !== 1 ? 's' : ''}</div>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Recent Bookings */}
-              <div className="rounded-2xl border border-taupe-100 bg-cream-50 p-6">
+              <div className="rounded-2xl border border-parchment-200 bg-parchment-100 p-6">
                 <div className="flex items-center justify-between mb-4">
                   <h2 className="text-lg font-serif font-semibold text-charcoal-700">Recent Bookings</h2>
                   <button 
                     onClick={() => setTab('bookings')}
-                    className="text-sm text-burgundy-500 font-medium hover:underline"
+                    className="text-sm text-pine-500 font-medium hover:underline"
                   >
                     View all
                   </button>
@@ -322,12 +322,12 @@ export default function ClientDashboardPage() {
                 
                 {bookings.length === 0 ? (
                   <div className="text-center py-8">
-                    <Camera className="w-12 h-12 text-taupe-300 mx-auto mb-3" />
+                    <Camera className="w-12 h-12 text-copper-300 mx-auto mb-3" />
                     <div className="font-medium text-charcoal-700">No bookings yet</div>
-                    <div className="text-sm text-taupe-500 mt-1">Start by browsing photographers</div>
+                    <div className="text-sm text-copper-500 mt-1">Start by browsing photographers</div>
                     <button
                       onClick={() => setTab('browse')}
-                      className="mt-4 rounded-xl bg-burgundy-500 text-white px-5 py-2.5 text-sm font-medium hover:bg-burgundy-600"
+                      className="mt-4 rounded-xl bg-pine-500 text-white px-5 py-2.5 text-sm font-medium hover:bg-pine-600"
                     >
                       Browse Photographers
                     </button>
@@ -335,22 +335,22 @@ export default function ClientDashboardPage() {
                 ) : (
                   <div className="space-y-3">
                     {recentBookings.map((b) => (
-                      <div key={b.id} className="flex items-center justify-between p-4 rounded-xl bg-cream-100/60 border border-taupe-100">
+                      <div key={b.id} className="flex items-center justify-between p-4 rounded-xl bg-parchment-200/60 border border-parchment-200">
                         <div className="flex items-center gap-4">
                           {photographers.find(p => p.id === b.photographerId)?.image ? (
                             <img 
                               src={photographers.find(p => p.id === b.photographerId)?.image} 
                               alt={partnerNameForBooking(b)}
-                              className="w-12 h-12 rounded-xl object-cover border border-taupe-100"
+                              className="w-12 h-12 rounded-xl object-cover border border-parchment-200"
                             />
                           ) : (
-                            <div className="w-12 h-12 rounded-xl bg-burgundy-100 text-burgundy-700 flex items-center justify-center font-semibold">
+                            <div className="w-12 h-12 rounded-xl bg-pine-100 text-pine-700 flex items-center justify-center font-semibold">
                               {partnerNameForBooking(b).split(' ').map(n => n[0]).join('').slice(0,2)}
                             </div>
                           )}
                           <div>
                             <div className="font-semibold text-charcoal-700">{partnerNameForBooking(b)}</div>
-                            <div className="text-sm text-taupe-600">{b.date}</div>
+                            <div className="text-sm text-copper-600">{b.date}</div>
                           </div>
                         </div>
                         <div className="flex items-center gap-3">
@@ -359,7 +359,7 @@ export default function ClientDashboardPage() {
                             b.status === 'accepted' ? 'bg-emerald-100 text-emerald-700' :
                             b.status === 'completed_by_client' || b.status === 'completed_by_admin' ? 'bg-blue-100 text-blue-700' :
                             b.status === 'rejected' ? 'bg-rose-100 text-rose-700' :
-                            'bg-taupe-100 text-taupe-700'
+                            'bg-copper-100 text-olive-500'
                           }`}>
                             {b.status === 'requested' ? 'Pending' :
                              b.status === 'accepted' ? 'Confirmed' :
@@ -395,8 +395,8 @@ export default function ClientDashboardPage() {
                     onClick={() => setFilter(item.key as DashboardBookingFilter)}
                     className={`rounded-full px-4 py-2 text-sm font-medium transition-all ${
                       filter === item.key
-                        ? 'bg-burgundy-500 text-white'
-                        : 'bg-cream-100 text-taupe-700 hover:bg-cream-200'
+                        ? 'bg-pine-500 text-white'
+                        : 'bg-parchment-200 text-olive-500 hover:bg-parchment-200'
                     }`}
                   >
                     {item.label} ({item.count})
@@ -412,12 +412,12 @@ export default function ClientDashboardPage() {
                     <BookingRowSkeleton />
                   </>
                 ) : visibleBookings.length === 0 ? (
-                  <div className="rounded-2xl border border-taupe-100 bg-cream-50 p-8 text-center">
-                    <CalendarCheck className="w-12 h-12 text-taupe-300 mx-auto mb-3" />
+                  <div className="rounded-2xl border border-parchment-200 bg-parchment-100 p-8 text-center">
+                    <CalendarCheck className="w-12 h-12 text-copper-300 mx-auto mb-3" />
                     <div className="font-medium text-charcoal-700">
                       {bookings.length === 0 ? 'No bookings yet' : 'No bookings match this filter'}
                     </div>
-                    <div className="text-sm text-taupe-500 mt-1">
+                    <div className="text-sm text-copper-500 mt-1">
                       {bookings.length === 0 
                         ? 'Start by browsing photographers for your next shoot'
                         : 'Try a different filter or view all bookings'}
@@ -425,7 +425,7 @@ export default function ClientDashboardPage() {
                     {bookings.length === 0 && (
                       <button
                         onClick={() => setTab('browse')}
-                        className="mt-4 rounded-xl bg-burgundy-500 text-white px-5 py-2.5 text-sm font-medium hover:bg-burgundy-600"
+                        className="mt-4 rounded-xl bg-pine-500 text-white px-5 py-2.5 text-sm font-medium hover:bg-pine-600"
                       >
                         Browse Photographers
                       </button>
@@ -433,7 +433,7 @@ export default function ClientDashboardPage() {
                     {bookings.length > 0 && filter !== 'all' && (
                       <button
                         onClick={() => setFilter('all')}
-                        className="mt-4 rounded-xl border border-taupe-200 text-charcoal-700 px-5 py-2.5 text-sm font-medium hover:bg-cream-200"
+                        className="mt-4 rounded-xl border border-parchment-200 text-charcoal-700 px-5 py-2.5 text-sm font-medium hover:bg-parchment-200"
                       >
                         Show all bookings
                       </button>
@@ -484,18 +484,18 @@ export default function ClientDashboardPage() {
 
           {/* Messages Tab */}
           {tab === 'messages' && (
-            <div className="rounded-2xl border border-taupe-100 bg-cream-50 overflow-hidden">
+            <div className="rounded-2xl border border-parchment-200 bg-parchment-100 overflow-hidden">
               <div className="grid grid-cols-1 sm:grid-cols-[240px_1fr] min-h-[500px]">
                 {/* Chat List */}
-                <div className="border-b sm:border-b-0 sm:border-r border-taupe-100">
-                  <div className="p-4 border-b border-taupe-100">
+                <div className="border-b sm:border-b-0 sm:border-r border-parchment-200">
+                  <div className="p-4 border-b border-parchment-200">
                     <h2 className="font-serif font-semibold text-charcoal-700">Messages</h2>
-                    <p className="text-sm text-taupe-500 mt-1">{chats.length} conversations</p>
+                    <p className="text-sm text-copper-500 mt-1">{chats.length} conversations</p>
                   </div>
                   <div className="max-h-[400px] overflow-auto">
                     {chats.length === 0 ? (
-                      <div className="p-4 text-center text-taupe-500 text-sm">
-                        <MessageCircle className="w-8 h-8 mx-auto mb-2 text-taupe-300" />
+                      <div className="p-4 text-center text-copper-500 text-sm">
+                        <MessageCircle className="w-8 h-8 mx-auto mb-2 text-copper-300" />
                         No messages yet
                       </div>
                     ) : (
@@ -510,8 +510,8 @@ export default function ClientDashboardPage() {
                               setActiveOtherUserId(c.otherUserId)
                               void fetchConversation(c.otherUserId)
                             }}
-                            className={`w-full text-left px-4 py-3 border-b border-taupe-100/50 hover:bg-cream-100 transition-colors ${
-                              active ? 'bg-burgundy-50' : ''
+                            className={`w-full text-left px-4 py-3 border-b border-parchment-200/50 hover:bg-parchment-200 transition-colors ${
+                              active ? 'bg-pine-50' : ''
                             }`}
                           >
                             <div className="flex items-center gap-3">
@@ -519,10 +519,10 @@ export default function ClientDashboardPage() {
                                 <img
                                   src={p.image}
                                   alt={p.name}
-                                  className="w-10 h-10 rounded-full object-cover border border-taupe-100"
+                                  className="w-10 h-10 rounded-full object-cover border border-parchment-200"
                                 />
                               ) : (
-                                <div className="w-10 h-10 rounded-full bg-burgundy-100 text-burgundy-700 flex items-center justify-center text-sm font-semibold">
+                                <div className="w-10 h-10 rounded-full bg-pine-100 text-pine-700 flex items-center justify-center text-sm font-semibold">
                                   {p?.name?.split(' ').map(n => n[0]).join('').slice(0,2) || 'U'}
                                 </div>
                               )}
@@ -530,7 +530,7 @@ export default function ClientDashboardPage() {
                                 <div className="text-sm font-semibold truncate text-charcoal-700">
                                   {p?.name || 'User'}
                                 </div>
-                                <div className="text-xs text-taupe-500 truncate">
+                                <div className="text-xs text-copper-500 truncate">
                                   {c.lastMessage || 'No messages yet'}
                                 </div>
                               </div>
@@ -546,16 +546,16 @@ export default function ClientDashboardPage() {
                 <div className="flex flex-col">
                   {activeOtherUserId ? (
                     <>
-                      <div className="p-4 border-b border-taupe-100 bg-cream-100/50">
+                      <div className="p-4 border-b border-parchment-200 bg-parchment-200/50">
                         <div className="flex items-center gap-3">
                           {partnerPhotographer?.image ? (
                             <img
                               src={partnerPhotographer.image}
                               alt={partnerPhotographer.name}
-                              className="w-10 h-10 rounded-full object-cover border border-taupe-100"
+                              className="w-10 h-10 rounded-full object-cover border border-parchment-200"
                             />
                           ) : (
-                            <div className="w-10 h-10 rounded-full bg-burgundy-100 text-burgundy-700 flex items-center justify-center">
+                            <div className="w-10 h-10 rounded-full bg-pine-100 text-pine-700 flex items-center justify-center">
                               {partnerPhotographer?.name?.split(' ').map(n => n[0]).join('').slice(0,2) || 'P'}
                             </div>
                           )}
@@ -563,15 +563,15 @@ export default function ClientDashboardPage() {
                             <div className="font-semibold text-charcoal-700">
                               {partnerPhotographer?.name || 'Photographer'}
                             </div>
-                            <div className="text-xs text-taupe-500">Direct messages</div>
+                            <div className="text-xs text-copper-500">Direct messages</div>
                           </div>
                         </div>
                       </div>
 
                       <div className="flex-1 p-4 overflow-auto space-y-3">
                         {conversation.length === 0 ? (
-                          <div className="text-center text-taupe-500 py-8">
-                            <MessageCircle className="w-10 h-10 mx-auto mb-2 text-taupe-300" />
+                          <div className="text-center text-copper-500 py-8">
+                            <MessageCircle className="w-10 h-10 mx-auto mb-2 text-copper-300" />
                             Say hi to start the conversation
                           </div>
                         ) : (
@@ -585,12 +585,12 @@ export default function ClientDashboardPage() {
                                 <div
                                   className={`max-w-[75%] rounded-2xl px-4 py-2.5 text-sm ${
                                     mine
-                                      ? 'bg-burgundy-500 text-white'
-                                      : 'bg-cream-100 text-charcoal-700 border border-taupe-100'
+                                      ? 'bg-pine-500 text-white'
+                                      : 'bg-parchment-200 text-charcoal-700 border border-parchment-200'
                                   }`}
                                 >
                                   {m.text}
-                                  <div className={`text-[10px] mt-1 ${mine ? 'text-cream-200' : 'text-taupe-400'}`}>
+                                  <div className={`text-[10px] mt-1 ${mine ? 'text-parchment-200' : 'text-copper-400'}`}>
                                     {new Date(m.createdAt).toLocaleTimeString([], {
                                       hour: '2-digit',
                                       minute: '2-digit',
@@ -603,13 +603,13 @@ export default function ClientDashboardPage() {
                         )}
                       </div>
 
-                      <div className="p-4 border-t border-taupe-100">
+                      <div className="p-4 border-t border-parchment-200">
                         <div className="flex items-center gap-3">
                           <input
                             value={messageText}
                             onChange={(e) => setMessageText(e.target.value)}
                             placeholder="Type a message..."
-                            className="flex-1 rounded-xl border border-taupe-100 bg-cream-50 px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-burgundy-500/30 text-charcoal-700 placeholder:text-taupe-500"
+                            className="flex-1 rounded-xl border border-parchment-200 bg-parchment-100 px-4 py-2.5 text-sm outline-none focus:ring-2 focus:ring-pine-500/30 text-charcoal-700 placeholder:text-copper-500"
                             onKeyDown={(e) => {
                               if (e.key === 'Enter' && !e.shiftKey && messageText.trim()) {
                                 void sendMessage(activeOtherUserId, messageText.trim()).then(() =>
@@ -620,7 +620,7 @@ export default function ClientDashboardPage() {
                           />
                           <button
                             type="button"
-                            className="rounded-xl bg-burgundy-500 text-white px-5 py-2.5 text-sm font-medium hover:bg-burgundy-600 transition-colors disabled:opacity-50"
+                            className="rounded-xl bg-pine-500 text-white px-5 py-2.5 text-sm font-medium hover:bg-pine-600 transition-colors disabled:opacity-50"
                             disabled={!messageText.trim()}
                             onClick={() => {
                               void sendMessage(activeOtherUserId, messageText.trim()).then(() =>
@@ -634,9 +634,9 @@ export default function ClientDashboardPage() {
                       </div>
                     </>
                   ) : (
-                    <div className="flex-1 flex items-center justify-center text-taupe-500">
+                    <div className="flex-1 flex items-center justify-center text-copper-500">
                       <div className="text-center">
-                        <MessageCircle className="w-12 h-12 mx-auto mb-3 text-taupe-300" />
+                        <MessageCircle className="w-12 h-12 mx-auto mb-3 text-copper-300" />
                         <div className="font-medium text-charcoal-700">Select a conversation</div>
                         <div className="text-sm mt-1">Choose from your existing chats</div>
                       </div>
@@ -656,20 +656,20 @@ export default function ClientDashboardPage() {
 
           {/* Profile Tab */}
           {tab === 'profile' && (
-            <div className="rounded-2xl border border-taupe-100 bg-cream-50 p-6 space-y-6">
+            <div className="rounded-2xl border border-parchment-200 bg-parchment-100 p-6 space-y-6">
               <div>
                 <h2 className="text-lg font-serif font-semibold text-charcoal-700">Profile Settings</h2>
-                <p className="text-sm text-taupe-500 mt-1">Manage your account details</p>
+                <p className="text-sm text-copper-500 mt-1">Manage your account details</p>
               </div>
 
               <div className="grid gap-6 max-w-lg">
                 {/* Profile Picture */}
                 <div className="flex items-center gap-4">
-                  <div className="w-20 h-20 rounded-full bg-burgundy-100 text-burgundy-700 flex items-center justify-center text-2xl font-semibold">
+                  <div className="w-20 h-20 rounded-full bg-pine-100 text-pine-700 flex items-center justify-center text-2xl font-semibold">
                     {(user?.fullName || user?.email || 'U').charAt(0).toUpperCase()}
                   </div>
                   <div>
-                    <button type="button" className="text-sm text-burgundy-500 font-medium hover:underline">
+                    <button type="button" className="text-sm text-pine-500 font-medium hover:underline">
                       Change photo
                     </button>
                   </div>
@@ -677,38 +677,38 @@ export default function ClientDashboardPage() {
 
                 {/* Full Name */}
                 <div>
-                  <label className="text-sm font-medium text-taupe-700" htmlFor="profile-name">
+                  <label className="text-sm font-medium text-olive-500" htmlFor="profile-name">
                     Full Name
                   </label>
                   <input
                     id="profile-name"
                     type="text"
                     defaultValue={user?.fullName || ''}
-                    className="mt-2 w-full rounded-xl border border-taupe-100 bg-cream-50 px-4 py-2.5 text-sm text-charcoal-700 focus:outline-none focus:ring-2 focus:ring-burgundy-500/30"
+                    className="mt-2 w-full rounded-xl border border-parchment-200 bg-parchment-100 px-4 py-2.5 text-sm text-charcoal-700 focus:outline-none focus:ring-2 focus:ring-pine-500/30"
                     placeholder="Enter your full name"
                   />
                 </div>
 
                 {/* Email (read-only) */}
                 <div>
-                  <label className="text-sm font-medium text-taupe-700">Email</label>
+                  <label className="text-sm font-medium text-olive-500">Email</label>
                   <input
                     type="email"
                     value={user?.email || ''}
                     disabled
-                    className="mt-2 w-full rounded-xl border border-taupe-100 bg-cream-100 px-4 py-2.5 text-sm text-taupe-500 cursor-not-allowed"
+                    className="mt-2 w-full rounded-xl border border-parchment-200 bg-parchment-200 px-4 py-2.5 text-sm text-copper-500 cursor-not-allowed"
                   />
                 </div>
 
                 {/* Phone */}
                 <div>
-                  <label className="text-sm font-medium text-taupe-700" htmlFor="profile-phone">
+                  <label className="text-sm font-medium text-olive-500" htmlFor="profile-phone">
                     Phone Number
                   </label>
                   <input
                     id="profile-phone"
                     type="tel"
-                    className="mt-2 w-full rounded-xl border border-taupe-100 bg-cream-50 px-4 py-2.5 text-sm text-charcoal-700 focus:outline-none focus:ring-2 focus:ring-burgundy-500/30"
+                    className="mt-2 w-full rounded-xl border border-parchment-200 bg-parchment-100 px-4 py-2.5 text-sm text-charcoal-700 focus:outline-none focus:ring-2 focus:ring-pine-500/30"
                     placeholder="+971 50 123 4567"
                   />
                 </div>
@@ -717,7 +717,7 @@ export default function ClientDashboardPage() {
                 <div className="pt-4">
                   <button
                     type="button"
-                    className="rounded-xl bg-burgundy-500 text-white px-6 py-2.5 text-sm font-medium hover:bg-burgundy-600 transition-colors"
+                    className="rounded-xl bg-pine-500 text-white px-6 py-2.5 text-sm font-medium hover:bg-pine-600 transition-colors"
                     onClick={() => {
                       const nameInput = (document.getElementById('profile-name') as HTMLInputElement)?.value
                       if (nameInput) {
@@ -731,7 +731,7 @@ export default function ClientDashboardPage() {
                 </div>
 
                 {/* Logout Section */}
-                <div className="pt-6 border-t border-taupe-100">
+                <div className="pt-6 border-t border-parchment-200">
                   <button
                     type="button"
                     onClick={handleLogout}
@@ -755,16 +755,16 @@ export default function ClientDashboardPage() {
           aria-modal="true"
           aria-labelledby="review-title"
         >
-          <div className="w-full max-w-md rounded-3xl border border-taupe-100 bg-cream-50 p-6 shadow-2xl">
+          <div className="w-full max-w-md rounded-3xl border border-parchment-200 bg-parchment-100 p-6 shadow-2xl">
             <h2 id="review-title" className="text-xl font-serif font-semibold text-charcoal-700">
               Leave a Review
             </h2>
-            <p className="text-sm text-taupe-600 mt-2">
+            <p className="text-sm text-copper-600 mt-2">
               How was your experience with {partnerNameForBooking(reviewBooking)}?
             </p>
 
             <div className="mt-6">
-              <label className="text-sm font-medium text-taupe-700 block mb-3">
+              <label className="text-sm font-medium text-olive-500 block mb-3">
                 Your rating
               </label>
               <div className="flex gap-2">
@@ -779,7 +779,7 @@ export default function ClientDashboardPage() {
                       className={`w-8 h-8 ${
                         star <= reviewRating 
                           ? 'text-amber-400 fill-amber-400' 
-                          : 'text-taupe-300'
+                          : 'text-copper-300'
                       }`} 
                     />
                   </button>
@@ -788,7 +788,7 @@ export default function ClientDashboardPage() {
             </div>
 
             <div className="mt-5">
-              <label className="text-sm font-medium text-taupe-700" htmlFor="review-comment">
+              <label className="text-sm font-medium text-olive-500" htmlFor="review-comment">
                 Your review (optional)
               </label>
               <textarea
@@ -796,7 +796,7 @@ export default function ClientDashboardPage() {
                 value={reviewComment}
                 onChange={(e) => setReviewComment(e.target.value)}
                 rows={4}
-                className="mt-2 w-full rounded-xl border border-taupe-100 bg-cream-50 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-burgundy-500/30 text-charcoal-700 placeholder:text-taupe-500"
+                className="mt-2 w-full rounded-xl border border-parchment-200 bg-parchment-100 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-pine-500/30 text-charcoal-700 placeholder:text-copper-500"
                 placeholder="Share your experience with this photographer..."
               />
             </div>
@@ -804,7 +804,7 @@ export default function ClientDashboardPage() {
             <div className="mt-6 flex gap-3">
               <button
                 type="button"
-                className="flex-1 rounded-xl border border-taupe-200 px-4 py-2.5 text-sm font-medium text-charcoal-700 hover:bg-cream-200"
+                className="flex-1 rounded-xl border border-parchment-200 px-4 py-2.5 text-sm font-medium text-charcoal-700 hover:bg-parchment-200"
                 onClick={() => setReviewBooking(null)}
                 disabled={reviewSubmitting}
               >
@@ -812,7 +812,7 @@ export default function ClientDashboardPage() {
               </button>
               <button
                 type="button"
-                className="flex-1 rounded-xl bg-burgundy-500 text-white px-4 py-2.5 text-sm font-medium hover:bg-burgundy-600 disabled:opacity-50"
+                className="flex-1 rounded-xl bg-pine-500 text-white px-4 py-2.5 text-sm font-medium hover:bg-pine-600 disabled:opacity-50"
                 disabled={reviewSubmitting}
                 onClick={() => void submitReview()}
               >

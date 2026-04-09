@@ -6,3 +6,4 @@ from app.models.photographer import PhotographerProfile, PortfolioItem  # noqa: 
 from app.models.booking import Booking, Review, BookingStatus  # noqa: F401
 from app.models.availability import Availability  # noqa: F401
 from app.models.message import Message  # noqa: F401
+from app.models.payment import Payment, PaymentStatus  # noqa: F401

@@ -1,4 +1,5 @@
 import math
+import uuid
 from typing import Optional
 from fastapi import APIRouter, Query
 from sqlalchemy import select, func
@@ -10,6 +11,7 @@ from app.models.photographer import PhotographerProfile
 from app.schemas.user import UserRead
 from app.schemas.common import PaginatedResponse, MessageResponse
 from app.services.booking_service import BookingService
+from app.core.exceptions import NotFoundException
 
 router = APIRouter()
 
@@ -61,9 +63,6 @@ async def admin_list_users(
 async def moderate_user(
     user_id: str, status: UserStatus, db: DBSession, _: CurrentAdmin
 ):
-    import uuid
-    from app.core.exceptions import NotFoundException
-
     result = await db.execute(select(User).where(User.id == uuid.UUID(user_id)))
     user = result.scalar_one_or_none()
     if not user:
@@ -77,10 +76,6 @@ async def moderate_user(
     "/users/{user_id}", response_model=MessageResponse, summary="Admin: delete user"
 )
 async def delete_user(user_id: str, db: DBSession, _: CurrentAdmin):
-    import uuid
-    from app.core.exceptions import NotFoundException
-    from app.models.photographer import PhotographerProfile
-
     result = await db.execute(select(User).where(User.id == uuid.UUID(user_id)))
     user = result.scalar_one_or_none()
     if not user:
@@ -133,9 +128,6 @@ async def admin_list_bookings(
 async def verify_photographer(
     profile_id: str, verified: bool, db: DBSession, _: CurrentAdmin
 ):
-    import uuid
-    from app.core.exceptions import NotFoundException
-
     result = await db.execute(
         select(PhotographerProfile).where(
             PhotographerProfile.id == uuid.UUID(profile_id)
@@ -156,8 +148,6 @@ async def verify_photographer(
     summary="Toggle featured status",
 )
 async def toggle_featured(profile_id: str, db: DBSession, _: CurrentAdmin):
-    import uuid
-
     result = await db.execute(
         select(PhotographerProfile).where(
             PhotographerProfile.id == uuid.UUID(profile_id)
@@ -165,8 +155,6 @@ async def toggle_featured(profile_id: str, db: DBSession, _: CurrentAdmin):
     )
     profile = result.scalar_one_or_none()
     if not profile:
-        from app.core.exceptions import NotFoundException
-
         raise NotFoundException("Photographer profile", profile_id)
     profile.is_featured = not profile.is_featured
     await db.flush()

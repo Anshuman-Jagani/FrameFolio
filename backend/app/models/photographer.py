@@ -2,7 +2,7 @@ from __future__ import annotations
 from typing import Optional
 import uuid
 from datetime import datetime, timezone
-from sqlalchemy import String, Text, Float, Boolean, ForeignKey, DateTime, ARRAY
+from sqlalchemy import String, Text, Float, Boolean, ForeignKey, DateTime
 from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.db.base import Base

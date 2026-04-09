@@ -1,9 +1,12 @@
 import uuid
 import math
+from datetime import date
 from typing import Optional
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, func, or_
-from sqlalchemy.orm import selectinload
+from sqlalchemy import select, func, or_, exists
+from sqlalchemy.orm import selectinload, contains_eager
+
+from app.models.availability import Availability
 
 from app.core.exceptions import NotFoundException, ForbiddenException, ConflictException, BadRequestException
 from app.models.photographer import PhotographerProfile, PortfolioItem
@@ -78,6 +81,7 @@ class PhotographerService:
         specialization: Optional[str] = None,
         is_available: Optional[bool] = None,
         is_featured: Optional[bool] = None,
+        available_on_date: Optional[date] = None,
     ) -> PaginatedResponse:
         query = select(PhotographerProfile).join(
             User, PhotographerProfile.user_id == User.id
@@ -106,6 +110,16 @@ class PhotographerService:
         if is_featured is not None:
             query = query.where(PhotographerProfile.is_featured == is_featured)
 
+        if available_on_date:
+            # Subquery to check if the photographer is booked on the given date
+            # We exclude them if ANY Availability record for that date says is_booked=True
+            booked_exists = select(Availability.id).where(
+                Availability.photographer_id == PhotographerProfile.id,
+                Availability.date == available_on_date,
+                Availability.is_booked == True
+            )
+            query = query.where(~exists(booked_exists))
+
         # Count total
         count_result = await self.db.execute(
             select(func.count()).select_from(query.subquery())
@@ -116,7 +130,7 @@ class PhotographerService:
         offset = (page - 1) * page_size
         result = await self.db.execute(
             query
-            .options(selectinload(PhotographerProfile.user))
+            .options(contains_eager(PhotographerProfile.user))
             .offset(offset)
             .limit(page_size)
             .order_by(
